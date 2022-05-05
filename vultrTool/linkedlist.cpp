@@ -25,18 +25,19 @@ LinkedList::list* LinkedList::list_at(int num)
     }
     return datalist;
 }
-void LinkedList::list_append( list *append_source )
+void LinkedList::list_append( void *append_data )
 {
-
-    append_source->next = NULL;
+    list *newlist = new list();
+    newlist->data = append_data;
+    newlist->next = NULL;
     if( list_size == 0  )
     {
-        first = append_source;
+        first = newlist;
     }
     else
     {
-        last->next = append_source;
+        last->next = newlist;
     }
-    last = append_source;
+    last = newlist;
     list_size++ ;
 }
