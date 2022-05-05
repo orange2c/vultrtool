@@ -23,6 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    linkedlist.cpp \
         main.cpp \
     pagebuy.cpp \
     pageinformation.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
     vultr.cpp
 
 HEADERS += \
+    linkedlist.h \
     pagebuy.h \
     pageinformation.h \
     pagelogin.h \

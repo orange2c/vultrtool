@@ -5,6 +5,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include "spider.h"
+#include "linkedlist.h"
+
 class VPSOS : public QObject
 {
     Q_OBJECT
@@ -18,16 +20,23 @@ public:
 
 };
 
-class VOsFamilly
+class VOsFamilly: LinkedList
 {
 public:
+    class list
+    {
+    public:
+        VPSOS *data;
+        list *last;
+        list *next;
+    };
+
     VOsFamilly( QString name ); //传入familly名称
     ~VOsFamilly();  //删除familly时，会顺带delete所有append进familly中的vpsos对象
     QString name();
     void append( VPSOS *os );
     void append( QJsonObject *os_json );
     bool appendSame( VPSOS *os ); //会判断传入的os的familly是否跟自己一致，相同则append然后返回true
-//    void append( VPSOS *os );
     VPSOS *at( int num );
     int size();
 
