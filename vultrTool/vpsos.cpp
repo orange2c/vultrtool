@@ -15,17 +15,7 @@ VOsFamilly::VOsFamilly( QString name )
 {
     familly_name.append(name);
 }
-VOsFamilly::~VOsFamilly( )
-{
-    linked_list *pnext;
-    while( first!=NULL )
-    {
-        pnext = first->next;
-        delete first->data;
-        delete first;
-        first = pnext;
-    }
-}
+
 QString VOsFamilly::name()
 {
     return QString(familly_name);
@@ -33,33 +23,11 @@ QString VOsFamilly::name()
 
 VPSOS* VOsFamilly::at(int num)
 {
-    int i = 0;
-    linked_list *os_list = first ;
-    for( ; i<num; i++ )
-    {
-        os_list = os_list->next;
-    }
-    return os_list->data;
-}
-int VOsFamilly::size()
-{
-    return size_p;
+    return (VPSOS*)list_at(num)->data;
 }
 void VOsFamilly::append( VPSOS *os )
 {
-    linked_list *linked_new = new linked_list;
-    linked_new->data = os;
-    linked_new->next = NULL;
-    if( size_p == 0  )
-    {
-        first = linked_new;
-    }
-    else
-    {
-        last->next = linked_new;
-    }
-    last = linked_new;
-    size_p++ ;
+    list_append( os);
 }
 void VOsFamilly::append( QJsonObject *os_json )
 {
