@@ -57,13 +57,10 @@ void PageBuy::update_model_owidget()
     log(  now_model->introduce() );
 }
 
-
 void PageBuy::on_vpslist_tabBarClicked(int index)
 {
     qDebug("click%d\n", index);
 }
-
-
 
 void PageBuy::on_list_model_itemClicked(QListWidgetItem *item)
 {
