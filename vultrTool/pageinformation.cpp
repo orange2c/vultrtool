@@ -1,3 +1,4 @@
+
 #include "pageinformation.h"
 #include "ui_pageinformation.h"
 #include "pagebuy.h"

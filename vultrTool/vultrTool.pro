@@ -30,6 +30,7 @@ SOURCES += \
     pagelogin.cpp \
     spider.cpp \
     vpsmodel.cpp \
+    vpsmodel_locations.cpp \
     vpsos.cpp \
     vultr.cpp
 
@@ -40,6 +41,7 @@ HEADERS += \
     pagelogin.h \
     spider.h \
     vpsmodel.h \
+    vpsmodel_locations.h \
     vpsos.h \
     vultr.h
 

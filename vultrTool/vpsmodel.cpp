@@ -1,3 +1,4 @@
+
 #include "vpsmodel.h"
 
 QStringList *location_transfer(QStringList *source)

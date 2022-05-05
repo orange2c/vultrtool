@@ -6,6 +6,7 @@
 
 #include "spider.h"
 #include "linkedlist.h"
+#include "vpsmodel_locations.h"
 
 
 class VPSMODEL
