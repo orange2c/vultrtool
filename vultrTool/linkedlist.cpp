@@ -16,6 +16,10 @@ int LinkedList::size()
 }
 LinkedList::list* LinkedList::list_at(int num)
 {
+    if(num >= list_size)
+        num = list_size-1;
+    if(num<0)
+        num = 0;
     int i = 0;
     list *datalist = first ;
     for( ; i<num; i++ )
@@ -39,4 +43,14 @@ void LinkedList::list_append( void *append_data )
     }
     last = newlist;
     list_size++ ;
+}
+
+void LinkedList::list_delete(int num)
+{
+    list *waite_delete = list_at(num);
+
+    list_at(num-1)->next = list_at(num+1); //at函数会判断num是否越界，并自动修正
+
+    list_size --;
+    delete waite_delete;
 }

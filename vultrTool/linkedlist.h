@@ -7,14 +7,12 @@ class LinkedList
 public:
     ~LinkedList();
 
-
     int size();
 protected:
     class list
     {
     public:
         void *data;
-        list *last;
         list *next;
     };
     int list_size= 0;  //有多少成员
@@ -24,6 +22,7 @@ protected:
 
     list * list_at(int num);
     void list_append( void *append_data );
+    void list_delete(int num);
 
 
 };
