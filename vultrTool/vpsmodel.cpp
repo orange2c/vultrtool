@@ -100,53 +100,28 @@ QString VPSMODEL::model_id()
 {
     return QString(id);
 }
+
+/******************VModelFamilly*********************/
+
+VPSMODEL* VModelFamilly::at(int num)
+{
+    return (VPSMODEL*)list_at(num)->data;
+}
 void VModelFamilly::append(VPSMODEL *model)
 {
-    linked_list *linked_new = new linked_list;
-    linked_new->data = model;
-    linked_new->next = NULL;
-    if( size_p == 0  )
-    {
-        first = linked_new;
-    }
-    else
-    {
-        last->next = linked_new;
-    }
-    last = linked_new;
-    size_p++ ;
+    list_append( model);
 }
 void VModelFamilly::append( QJsonObject *vps_json )
 {
     VPSMODEL *model = new VPSMODEL( vps_json );
     append( model );
 }
-int VModelFamilly::size()
-{
-    return size_p;
-}
-VPSMODEL* VModelFamilly::at(int num)
-{
-    int i = 0;
-    linked_list *os_list = first ;
-    for( ; i<num; i++ )
-    {
-        os_list = os_list->next;
-    }
-    return os_list->data;
-}
+
 VModelFamilly::VModelFamilly()
-{
-    ;
-}
+{}
 VModelFamilly::~VModelFamilly()
 {
-    linked_list *pnext;
-    while( first!=NULL )
-    {
-        pnext = first->next;
-        delete first->data;
-        delete first;
-        first = pnext;
-    }
+    for(int i = 0; i<size(); i++)
+        delete at(i);
 }
+

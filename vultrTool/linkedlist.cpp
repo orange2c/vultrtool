@@ -6,7 +6,6 @@ LinkedList::~LinkedList()
     while( first!=NULL )
     {
         pnext = first->next;
-        delete first->data;
         delete first;
         first = pnext;
     }

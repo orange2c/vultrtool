@@ -15,7 +15,11 @@ VOsFamilly::VOsFamilly( QString name )
 {
     familly_name.append(name);
 }
-
+VOsFamilly::~VOsFamilly(  )
+{
+    for(int i = 0; i<size(); i++)
+        delete at(i);
+}
 QString VOsFamilly::name()
 {
     return QString(familly_name);

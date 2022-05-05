@@ -2,9 +2,10 @@
 #define VPSMODEL_H
 
 #include <QObject>
-#include "spider.h"
 #include <QString>
 
+#include "spider.h"
+#include "linkedlist.h"
 
 
 class VPSMODEL
@@ -33,24 +34,19 @@ protected:
 
 };
 
-class VModelFamilly
+class VModelFamilly: public LinkedList
 {
 public:
     VModelFamilly();
     ~VModelFamilly();
+
+    VPSMODEL *at(int num);
     void append( VPSMODEL *model );
     void append( QJsonObject *vps_json );
-    VPSMODEL *at(int num);
-    int size();
+
+
 protected:
-    int size_p = 0;  //有多少成员
-    struct linked_list
-    {
-        VPSMODEL *data;
-        linked_list *next;
-    };
-    linked_list *first=NULL;
-    linked_list *last;
+
 
 };
 
