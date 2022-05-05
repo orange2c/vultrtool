@@ -44,7 +44,6 @@ public:
     void append( VPSMODEL *model );
     void append( QJsonObject *vps_json );
 
-
 protected:
 
 

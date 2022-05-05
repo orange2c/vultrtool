@@ -47,3 +47,6 @@ FORMS += \
     pagebuy.ui \
     pageinformation.ui \
     pagelogin.ui
+
+DISTFILES += \
+    readme.md
