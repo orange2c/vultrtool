@@ -6,47 +6,29 @@ VPSOS::VPSOS( QJsonObject *os_json )
     name.append( SPIDER::path( os_json, "name" ).toString() );
     family.append( SPIDER::path( os_json, "family" ).toString() );
     qDebug("id=%d,name=%s,familly=%s",id, qPrintable(name), qPrintable(family) );
-
 }
 
 /*******************************VOSFAMILLY*********************************/
 
 VOsFamilly::VOsFamilly( QString name )
 {
-    familly_name.append(name);
-}
-VOsFamilly::~VOsFamilly(  )
-{
-    for(int i = 0; i<size(); i++)
-        delete at(i);
-}
-QString VOsFamilly::name()
-{
-    return QString(familly_name);
+    setname(name);
 }
 
-VPSOS* VOsFamilly::at(int num)
-{
-    return (VPSOS*)list_at(num)->data;
-}
-void VOsFamilly::append( VPSOS *os )
-{
-    list_append( os);
-}
+
 void VOsFamilly::append( QJsonObject *os_json )
 {
     VPSOS *os = new VPSOS(os_json);
-    this->append( os);
+    LinkedList::append( os);
 }
 bool VOsFamilly::appendSame( VPSOS *os )
 {
-    qDebug("myname=%s",qPrintable(this->familly_name) );
-//    qDebug("id=%d", os->id );
+    qDebug("myname=%s",qPrintable(this->name()) );
     qDebug("hisfamilly=%s",qPrintable(os->family) );
 
-    if( QString::compare( this->familly_name, os->family )==0 )
+    if( QString::compare( this->name(), os->family )==0 )
     {
-        append(os);
+        LinkedList::append(os);
         return true;
     }
     else
@@ -55,13 +37,4 @@ bool VOsFamilly::appendSame( VPSOS *os )
         return false;
     }
 
-}
-void VOsFamilly::deleteat(int num)
-{
-    delete at(num);
-}
-void VOsFamilly::clear()
-{
-    while( list_size >1 )
-        deleteat( list_size-1 );
 }

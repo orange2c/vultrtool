@@ -111,10 +111,4 @@ void VModelFamilly::append( QJsonObject *vps_json )
     LinkedList::append( newmodel );
 }
 
-VModelFamilly::VModelFamilly()
-{}
-VModelFamilly::~VModelFamilly()
-{
-    clear();
-}
 

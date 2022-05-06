@@ -118,9 +118,11 @@ void VULTR::update_model()
 
         qDebug("i=%d,id=%d", i, os_all->at(i)->id);
         if( OSlist[0]->appendSame( os_all->at(i) ) )
+        {
+            os_all->deleteat(i);
             qDebug("匹配成功");
             qDebug("ubuntu成员有%d", OSlist[0]->size());
-
+        }
          i++;
     }
 //        OSlist->at(0)->appendSame( os_all->at(20) );

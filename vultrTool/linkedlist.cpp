@@ -1,15 +1,15 @@
 #include "linkedlist.h"
 
-LinkedList_core::~LinkedList_core()
-{
-    list *pnext;
-    while( first!=NULL )
-    {
-        pnext = first->next;
-        delete first;
-        first = pnext;
-    }
-}
+//LinkedList_core::~LinkedList_core()
+//{
+//    list *pnext;
+//    while( first!=NULL )
+//    {
+//        pnext = first->next;
+//        delete first;
+//        first = pnext;
+//    }
+//}
 void LinkedList_core::setname(QString name)
 {
     name_core.clear();

@@ -7,8 +7,6 @@
 class LinkedList_core
 {
 public:
-    ~LinkedList_core();
-
     int size();
     void setname(QString name);
     QString name();
@@ -40,18 +38,33 @@ public:
     void append( data_type *data ){
         list_append(data);
     }
+//    void append( data_type data ){
+//        data_type newdata = new data_type();
+//        list_append(newdata);
+//    }
     data_type *at( int num ){
         return (data_type *)list_at(num)->data;
     }
-    void deleteat( int num ){ //删除指定的数据
+    void deleteat( int num ){ //仅删除链表
+        list_deleteat(num);
+    }
+    void deletedataat( int num ){ //删除链表节点及内含数据
         delete at(num);
+        list_deleteat(num);
     }
     void clear(){
         while( list_size >1 )
             deleteat( list_size-1 );
     }
+    void cleardata(){ //删除链表节点及内含数据
+        while( list_size >1 )
+            deletedataat( list_size-1 );
+    }
+    void take(  ){
+
+    }
     ~LinkedList(){
-        clear();
+        cleardata();
     }
 
 

@@ -21,21 +21,13 @@ public:
 
 };
 
-class VOsFamilly: public LinkedList_core
+class VOsFamilly: public LinkedList< VPSOS >
 {
 public:
     VOsFamilly( QString name ); //传入familly名称
-    ~VOsFamilly( ); //delete所有被append进来的VPSOS
-    QString name();
 
-    VPSOS *at( int num );
-    void append( VPSOS *os );
     void append( QJsonObject *os_json );
     bool appendSame( VPSOS *os ); //会判断传入的os的familly是否跟自己一致，相同则append然后返回true
-    void deleteat( int num );
-    void clear();
-protected:
-    QString familly_name;
 
 
 };
