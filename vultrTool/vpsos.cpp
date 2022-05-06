@@ -15,7 +15,6 @@ VOsFamilly::VOsFamilly( QString name )
     setname(name);
 }
 
-
 void VOsFamilly::append( QJsonObject *os_json )
 {
     VPSOS *os = new VPSOS(os_json);
@@ -23,8 +22,8 @@ void VOsFamilly::append( QJsonObject *os_json )
 }
 bool VOsFamilly::appendSame( VPSOS *os )
 {
-    qDebug("myname=%s",qPrintable(this->name()) );
-    qDebug("hisfamilly=%s",qPrintable(os->family) );
+//    qDebug("myname=%s",qPrintable(this->name()) );
+//    qDebug("hisfamilly=%s",qPrintable(os->family) );
 
     if( QString::compare( this->name(), os->family )==0 )
     {

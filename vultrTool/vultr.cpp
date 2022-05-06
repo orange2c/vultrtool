@@ -12,7 +12,13 @@ VULTR::VULTR()
     spider = new SPIDER( this->API_KEY );
     QObject::connect( spider, SIGNAL(log(QString)), this, SLOT(log_Transfer(QString)) );
     OSlist[0] = new VOsFamilly("ubuntu");
-    OSlist[1] = new VOsFamilly("ubuntu");
+    OSlist[1] = new VOsFamilly("centos");
+    OSlist[2] = new VOsFamilly("debian");
+    OSlist[3] = new VOsFamilly("freebsd");
+    OSlist[4] = new VOsFamilly("fedora");
+    OSlist[5] = new VOsFamilly("vzlinux");
+    OSlist[6] = new VOsFamilly("openbsd");
+    OSlist[7] = new VOsFamilly("other");
 }
 VULTR::~VULTR()
 {
@@ -82,15 +88,12 @@ void VULTR::update_model()
     QJsonArray *vps_list = new QJsonArray(spider->path( &match_str ).toArray());
     QJsonArray *vc2_json = new QJsonArray();
 
-
     emit log("take vc2");
     spider->take( vps_list, "type", QJsonValue("vc2"), vc2_json ); //将所有vc2机型的信息json，都提取出来
     QJsonArray non_delete;
     spider->take(  vc2_json, "locations", QJsonValue("sao"), &non_delete ); //删除巴西特供版机型（和其他地区机型相同，但贵%50）
     spider->take(  vc2_json, "locations", QJsonValue(), &non_delete ); //删除可部署地区为空的（不可用机型）
-
     int liset_size = vc2_json->size();
-
     for( int i = 0; i<liset_size; i++ )
     {
         QJsonObject obj = vc2_json->at(i).toObject();
@@ -99,34 +102,33 @@ void VULTR::update_model()
     }
     qDebug( "vc2共%d种可用机型",vc2->size() );
 
+
+
     spider->get("os");
     match_str << "os";
     QJsonArray os_all_json = spider->path( &match_str ).toArray();
-
-    VOsFamilly *os_all = new VOsFamilly("all");
-
-
-
+    VOsFamilly *os_all = OSlist[OS_LIST_SIZE-1];//存储所有可用os
     for( int i=0; i<os_all_json.size(); i++ )
     {
-        qDebug("find" );
         QJsonObject os_json = os_all_json.at(i).toObject();
         os_all->append( &os_json );
     }
-    int i =5;
-    while (i < os_all->size()) {
 
-        qDebug("i=%d,id=%d", i, os_all->at(i)->id);
-        if( OSlist[0]->appendSame( os_all->at(i) ) )
+    for( int listp=0; listp<( OS_LIST_SIZE-1); listp++ )//计算数组长度，控制为循环次数
+    {
+        int i =0;
+        while (i < os_all->size())
         {
-            os_all->deleteat(i);
-            qDebug("匹配成功");
-            qDebug("ubuntu成员有%d", OSlist[0]->size());
+//            qDebug("i=%d,id=%d", i, os_all->at(i)->id);
+            if( OSlist[listp]->appendSame( os_all->at(i) ) )
+            {
+                os_all->deleteat(i);
+            }
+             i++;
         }
-         i++;
     }
-//        OSlist->at(0)->appendSame( os_all->at(20) );
+
 
     qDebug("os size=%d",os_all->size() );
-    delete os_all;
+//    delete os_all;
 }

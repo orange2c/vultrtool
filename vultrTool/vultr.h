@@ -27,7 +27,11 @@ public:
     double Balance;
 
     VModelFamilly *vc2 = new VModelFamilly();
-    VOsFamilly *OSlist[3] ;
+
+#define  OS_LIST_SIZE  8
+    VOsFamilly *OSlist[OS_LIST_SIZE] ; //目前可用os类型
+
+
 
 protected:
     static QByteArray *API_KEY ;

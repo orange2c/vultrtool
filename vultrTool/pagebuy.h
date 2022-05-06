@@ -21,9 +21,10 @@ private:
     Ui::PageBuy *ui;
     VULTR *vr;  //定义一个操作vultr的类指针
     VPSMODEL *now_model;
+    VPSOS *now_os;
 
     void update_model_list();
-    void update_model_owidget();
+    void update_model_locations();
     void log( QString log_text ); //将传入字符串在log窗口显示出来
 
 public slots:
@@ -34,6 +35,8 @@ private slots:
     void on_vpslist_tabBarClicked(int index);
     void on_list_model_itemClicked(QListWidgetItem *item);
     void on_pushButton_clicked();
+    void on_Box_OS1_currentIndexChanged(int index);
+    void on_Box_OS2_currentIndexChanged(int index);
 };
 
 #endif // PAGEBUY_H
