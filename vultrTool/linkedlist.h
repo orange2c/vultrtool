@@ -2,10 +2,12 @@
 #define LINKEDLIST_H
 #include <QObject>
 
-class LinkedList
+
+//链表核心，实现所有功能，但存储的data是个void*指针,不能实现delete data，new等操作
+class LinkedList_core
 {
 public:
-    ~LinkedList();
+    ~LinkedList_core();
 
     int size();
 protected:
@@ -24,8 +26,26 @@ protected:
     void list_append( void *append_data );
     void list_deleteat(int num);
     void list_clear();
+};
 
-
+//模板类，传入data的数据类型，调用上面core类实现大部分功能
+template <class data_type>
+class LinkedList: public LinkedList_core
+{
+public:
+    void append( data_type *data ){
+        list_append(data);
+    }
+    data_type *at( int num ){
+        return (data_type *)list_at(num)->data;
+    }
+    void deleteat( int num ){
+        delete at(num);
+    }
+    void clear(){
+        while( list_size >1 )
+            deleteat( list_size-1 );
+    }
 };
 
 #endif // LINKEDLIST_H

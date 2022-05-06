@@ -35,7 +35,7 @@ protected:
 
 };
 
-class VModelFamilly: public LinkedList
+class VModelFamilly: public LinkedList_core
 {
 public:
     VModelFamilly();

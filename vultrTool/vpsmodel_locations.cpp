@@ -1,10 +1,10 @@
 #include "vpsmodel_locations.h"
 
 
-QStringList VPSMODEL_LOCATIONS::countryNAME = {
-    "美国", "法国", "英国",
-    "日本", "荷兰"
-};
+//QStringList VPSMODEL_LOCATIONS::countryNAME = {
+//    "美国", "法国", "英国",
+//    "日本", "荷兰"
+//};
 //airport VPSMODEL_LOCATIONS::find_aircode( QString code)
 //{
 //    airport all_aircode[5];

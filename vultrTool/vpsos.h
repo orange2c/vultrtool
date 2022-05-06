@@ -21,7 +21,7 @@ public:
 
 };
 
-class VOsFamilly: public LinkedList
+class VOsFamilly: public LinkedList_core
 {
 public:
     VOsFamilly( QString name ); //传入familly名称

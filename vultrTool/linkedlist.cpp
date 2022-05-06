@@ -1,6 +1,6 @@
 #include "linkedlist.h"
 
-LinkedList::~LinkedList()
+LinkedList_core::~LinkedList_core()
 {
     list *pnext;
     while( first!=NULL )
@@ -10,11 +10,11 @@ LinkedList::~LinkedList()
         first = pnext;
     }
 }
-int LinkedList::size()
+int LinkedList_core::size()
 {
     return list_size;
 }
-LinkedList::list* LinkedList::list_at(int num)
+LinkedList_core::list* LinkedList_core::list_at(int num)
 {
     if(num >= list_size)
         num = list_size-1;
@@ -28,7 +28,7 @@ LinkedList::list* LinkedList::list_at(int num)
     }
     return datalist;
 }
-void LinkedList::list_append( void *append_data )
+void LinkedList_core::list_append( void *append_data )
 {
     list *newlist = new list();
     newlist->data = append_data;
@@ -45,7 +45,7 @@ void LinkedList::list_append( void *append_data )
     list_size++ ;
 }
 
-void LinkedList::list_deleteat(int num)
+void LinkedList_core::list_deleteat(int num)
 {
     list *waite_delete = list_at(num);
 
@@ -54,7 +54,7 @@ void LinkedList::list_deleteat(int num)
     list_size --;
     delete waite_delete;
 }
-void LinkedList::list_clear()
+void LinkedList_core::list_clear()
 {
     while( list_size >1 )
         list_deleteat( list_size-1 );
