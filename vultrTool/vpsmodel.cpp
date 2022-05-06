@@ -104,25 +104,17 @@ QString VPSMODEL::model_id()
 
 /******************VModelFamilly*********************/
 
-VPSMODEL* VModelFamilly::at(int num)
-{
-    return (VPSMODEL*)list_at(num)->data;
-}
-void VModelFamilly::append(VPSMODEL *model)
-{
-    list_append( model);
-}
+
 void VModelFamilly::append( QJsonObject *vps_json )
 {
-    VPSMODEL *model = new VPSMODEL( vps_json );
-    append( model );
+    VPSMODEL *newmodel = new VPSMODEL( vps_json );
+    LinkedList::append( newmodel );
 }
 
 VModelFamilly::VModelFamilly()
 {}
 VModelFamilly::~VModelFamilly()
 {
-    for(int i = 0; i<size(); i++)
-        delete at(i);
+    clear();
 }
 

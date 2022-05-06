@@ -10,7 +10,10 @@ public:
     ~LinkedList_core();
 
     int size();
+    void setname(QString name);
+    QString name();
 protected:
+    QString name_core;
     class list
     {
     public:
@@ -33,19 +36,25 @@ template <class data_type>
 class LinkedList: public LinkedList_core
 {
 public:
+
     void append( data_type *data ){
         list_append(data);
     }
     data_type *at( int num ){
         return (data_type *)list_at(num)->data;
     }
-    void deleteat( int num ){
+    void deleteat( int num ){ //删除指定的数据
         delete at(num);
     }
     void clear(){
         while( list_size >1 )
             deleteat( list_size-1 );
     }
+    ~LinkedList(){
+        clear();
+    }
+
+
 };
 
 #endif // LINKEDLIST_H

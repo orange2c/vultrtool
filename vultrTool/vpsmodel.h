@@ -32,17 +32,11 @@ protected:
     QStringList *locationsCNp = NULL ;
     QStringList *locationsENp = NULL ;
 
-
 };
 
-class VModelFamilly: public LinkedList_core
+class VModelFamilly: public LinkedList< VPSMODEL >
 {
 public:
-    VModelFamilly();
-    ~VModelFamilly();
-
-    VPSMODEL *at(int num);
-    void append( VPSMODEL *model );
     void append( QJsonObject *vps_json );
 
 protected:

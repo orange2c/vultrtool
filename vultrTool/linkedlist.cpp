@@ -10,6 +10,15 @@ LinkedList_core::~LinkedList_core()
         first = pnext;
     }
 }
+void LinkedList_core::setname(QString name)
+{
+    name_core.clear();
+    name_core.append(name);
+}
+QString LinkedList_core::name()
+{
+    return name_core;
+}
 int LinkedList_core::size()
 {
     return list_size;
