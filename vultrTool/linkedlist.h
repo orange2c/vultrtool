@@ -22,7 +22,8 @@ protected:
 
     list * list_at(int num);
     void list_append( void *append_data );
-    void list_delete(int num);
+    void list_deleteat(int num);
+    void list_clear();
 
 
 };

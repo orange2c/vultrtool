@@ -55,7 +55,6 @@ QStringList VPSMODEL_LOCATIONS::countryNAME = {
 //        }
 
 //    }
-////    qSort( *locations);
 //    return locations;
 
 //}

@@ -45,7 +45,7 @@ void LinkedList::list_append( void *append_data )
     list_size++ ;
 }
 
-void LinkedList::list_delete(int num)
+void LinkedList::list_deleteat(int num)
 {
     list *waite_delete = list_at(num);
 
@@ -53,4 +53,9 @@ void LinkedList::list_delete(int num)
 
     list_size --;
     delete waite_delete;
+}
+void LinkedList::list_clear()
+{
+    while( list_size >1 )
+        list_deleteat( list_size-1 );
 }

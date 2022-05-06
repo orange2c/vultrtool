@@ -56,4 +56,12 @@ bool VOsFamilly::appendSame( VPSOS *os )
     }
 
 }
-
+void VOsFamilly::deleteat(int num)
+{
+    delete at(num);
+}
+void VOsFamilly::clear()
+{
+    while( list_size >1 )
+        deleteat( list_size-1 );
+}

@@ -12,6 +12,7 @@ VULTR::VULTR()
     spider = new SPIDER( this->API_KEY );
     QObject::connect( spider, SIGNAL(log(QString)), this, SLOT(log_Transfer(QString)) );
     OSlist[0] = new VOsFamilly("ubuntu");
+    OSlist[1] = new VOsFamilly("ubuntu");
 }
 VULTR::~VULTR()
 {
