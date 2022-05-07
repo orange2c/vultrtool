@@ -18,11 +18,11 @@ VPSMODE_DATA::VPSMODE_DATA( QJsonObject *vps_json )
     bandwidth = SPIDER::path( vps_json, "bandwidth" ).toInt() ;
     disk_count = SPIDER::path( vps_json, "disk_count" ).toInt() ;
     monthly_cost =  SPIDER::path( vps_json, "monthly_cost" ).toDouble() ;
-
+    minuter_cost = monthly_cost/672;
     introduceP->append(QString::number(vcpu_count)+'\t');
     introduceP->append(QString::number(ram/1024)+"g\t");
     introduceP->append(QString::number(disk)+"G\t");
-    introduceP->append(QString::number(monthly_cost/672, 'f', 4 )+ "$\t");
+    introduceP->append(QString::number(minuter_cost, 'f', 4 )+ "$\t");
     introduceP->append(QString::number(monthly_cost)+ "$");
 
     QJsonArray location_json = SPIDER::path( vps_json, "locations" ).toArray();

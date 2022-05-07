@@ -29,7 +29,8 @@ protected:
     int disk = 0;
     int disk_count = 0;
     int bandwidth = 0;
-    int monthly_cost = 0;
+    double monthly_cost = 0;
+    double minuter_cost = 0;
 };
 
 class VModelFamilly: public LinkedList< VPSMODE_DATA >
