@@ -1,7 +1,7 @@
 #include "vpsmodel_locations.h"
 int airdata::count = 0;
 
-airdata::airdata( QString code, QString translate, countryENUM thecountry)
+airdata::airdata( QString code, QString translate, int thecountry)
 {
     airport = code;
     name =translate;
@@ -16,7 +16,7 @@ airdata::airdata(QString code)
     count++;
 }
 
-void AirFamilly::append(QString code, QString translate, countryENUM thecountry)
+void AirFamilly::append(QString code, QString translate, int thecountry)
 {
     airdata *newdata = new airdata( code, translate, thecountry );
     LinkedList::append(newdata);
@@ -39,13 +39,6 @@ VPSMODEL_LOCATIONS::VPSMODEL_LOCATIONS()
     all_air->append("ewr", "纽约", EAmerican);
     all_air->append("ord", "芝加哥", EAmerican);
     all_air->append("ams", "阿姆斯特丹", EHolland);
-
-//    transfer_locations[EAmerican] = new AirFamilly("American");
-//    transfer_locations[EFrance] = new AirFamilly("EFrance");
-//    transfer_locations[EEngland] = new AirFamilly("EEngland");
-//    transfer_locations[EJapan] = new AirFamilly("EJapan");
-//    transfer_locations[EHolland] = new AirFamilly("EHolland");
-//    transfer_locations[Eother] = new AirFamilly("无翻译");
 
 }
 VPSMODEL_LOCATIONS::~VPSMODEL_LOCATIONS()
@@ -75,7 +68,7 @@ void VPSMODEL_LOCATIONS::addtolocations(QString aircode)
     transfer_locations[Eother]->append(aircode);
 }
 
-void VPSMODEL_LOCATIONS::transfer(QStringList *source)
+void VPSMODEL_LOCATIONS::update(QStringList *source)
 {
     size_locations = 0; //
     for( int i=0; i<Eother+1; i++ )

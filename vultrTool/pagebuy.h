@@ -38,6 +38,7 @@ private slots:
     void on_Box_OS1_currentIndexChanged(int index);
     void on_Box_OS2_currentIndexChanged(int index);
     void on_Box_locations1_currentIndexChanged(int index);
+    void on_vpslist_currentChanged(int index);
 };
 
 #endif // PAGEBUY_H

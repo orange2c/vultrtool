@@ -26,8 +26,9 @@ public:
     static QString username;
     static double Balance;
 
-    VModelFamilly *vc2 = new VModelFamilly();
+//    VModelFamilly *vc2 = new VModelFamilly("cloud", "vc2");
     VPSOS *os =new VPSOS;  //部署新vps可用的os
+    VPSMODEL *model = new VPSMODEL;
 
 protected:
     static QByteArray *API_KEY ;

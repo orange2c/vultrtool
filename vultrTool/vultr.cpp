@@ -19,7 +19,6 @@ VULTR::VULTR()
 }
 VULTR::~VULTR()
 {
-    delete vc2;
     delete spider;
     delete os;
 }
@@ -74,28 +73,9 @@ void VULTR::update_message()
 void VULTR::update_model()
 {
     emit log("更新可购买vps列表...");
-    spider->get( "plans" );
-    QStringList match_str;
-
-    match_str << "plans";
-    QJsonArray *vps_list = new QJsonArray(spider->path( &match_str ).toArray());
-    QJsonArray *vc2_json = new QJsonArray();
-
-    emit log("take vc2");
-    spider->take( vps_list, "type", QJsonValue("vc2"), vc2_json ); //将所有vc2机型的信息json，都提取出来
-    QJsonArray non_delete;
-    spider->take(  vc2_json, "locations", QJsonValue("sao"), &non_delete ); //删除巴西特供版机型（和其他地区机型相同，但贵%50）
-    spider->take(  vc2_json, "locations", QJsonValue(), &non_delete ); //删除可部署地区为空的（不可用机型）
-    int liset_size = vc2_json->size();
-    for( int i = 0; i<liset_size; i++ )
-    {
-        QJsonObject obj = vc2_json->at(i).toObject();
-        vc2->append( &obj );
-    }
-    qDebug( "vc2共%d种可用机型",vc2->size() );
-
 
     //获取可用os信息
     os->update();
+    model->update();
 
 }

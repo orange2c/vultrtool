@@ -3,12 +3,8 @@
 #include <QStringList>
 #include "linkedlist.h"
 
-enum countryENUM
-{
-    EAmerican=0, EFrance, EEngland,
-    EJapan,  EHolland,
-    Eother
-}; //国家枚举
+
+
 
 //机场信息类
 class airdata
@@ -17,8 +13,8 @@ class airdata
 public:
     QString airport ;  //机场3字代码
     QString name ;  //对应机场的名称
-    countryENUM country;
-    airdata( QString code, QString translate, countryENUM thecountry);
+    int country;
+    airdata( QString code, QString translate, int thecountry);
     airdata( QString code );
     static int count; //存储到底被实例化多少对象
     ~airdata(){ count--; }
@@ -29,10 +25,17 @@ class AirFamilly:public LinkedList<airdata>
 {
 public:
     AirFamilly(QString name);
-    void append(QString code, QString translate, countryENUM thecountry);
+    void append(QString code, QString translate, int thecountry);
     void append( airdata *data );
     void append( QString code );
 };
+
+#define EAmerican    0
+#define EFrance     1
+#define EEngland    2
+#define EJapan     3
+#define EHolland     4
+#define Eother     5
 
 class VPSMODEL_LOCATIONS
 {
@@ -40,12 +43,11 @@ public:
     VPSMODEL_LOCATIONS( );
     ~VPSMODEL_LOCATIONS();
 
-    void transfer(QStringList *source); //传入一个机型可用的所有机场代码
+    void update(QStringList *source); //传入一个机型可用的所有机场代码
     AirFamilly *at(int num);
     int size();
 
 protected:
-
     AirFamilly *locations[Eother+1]; //指向transfer_locations的非空项目
     int size_locations; //记录上面指针数组的非空数量
     void addtolocations( QString aircode );  //传入一个机场代码，识别并添加到locations

@@ -14,13 +14,9 @@ PageBuy::PageBuy(QWidget *parent) :
     vr->update_model();
     ui->list0->setMovement( QListView::Static );
     ui->list0->item(0)->setText( "cpu\tRAM\t硬盘\t分钟价格\t满月价格");
-    for( int i =0; i< vr->vc2->size(); i++ )
-    {
-        ui->list_model->addItem( vr->vc2->at(i)->introduce() );
-    }
-    ui->list_model->setCurrentRow(0) ;
-    PageBuy::on_list_model_itemClicked(ui->list_model->currentItem());
 
+    int numModelFamilly = ui->list_model->currentRow();
+    PageBuy::on_vpslist_currentChanged(numModelFamilly);
 
     for( int i=0; i<(OS_LIST_SIZE); i++ )
     {
@@ -80,7 +76,7 @@ void PageBuy::on_list_model_itemClicked(QListWidgetItem *item)
 {
     int num = item->listWidget()->currentRow();
     qDebug("%d",item->listWidget()->currentRow());
-    now_model = vr->vc2->at(num);
+    now_model = vr->model->at( ui->list_model->currentRow() )->at(num);
 
     update_model_locations();
 
@@ -128,5 +124,19 @@ void PageBuy::on_Box_locations1_currentIndexChanged(int index)
     else
         ui->Box_locations2->setEnabled(true);
     log(  now_model->introduce() );
+}
+
+
+void PageBuy::on_vpslist_currentChanged(int index)
+{
+    qDebug("computer type change %d", index);
+    if( ui->list_model->count()>0 )
+        ui->list_model->clear();
+
+    for( int i =0; i< vr->model->at(index)->size() ; i++ )
+    {
+        ui->list_model->addItem( vr->model->at(index)->at(i)->introduce() );
+    }
+    ui->list_model->setCurrentRow(0) ;
 }
 

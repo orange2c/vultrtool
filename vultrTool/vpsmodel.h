@@ -30,15 +30,14 @@ protected:
     int disk_count = 0;
     int bandwidth = 0;
     int monthly_cost = 0;
-
-
 };
 
 class VModelFamilly: public LinkedList< VPSMODE_DATA >
 {
 public:
-    VModelFamilly();
     VModelFamilly( QString name, QString type_name );
+    void takeSame(QJsonArray *vps_list); //传入json数组，将所有与model_type相同的都取走
+
     void append( QJsonObject *vps_json );
 protected:
     QString model_type;
@@ -46,12 +45,16 @@ protected:
 
 class VPSMODEL
 {
+public:
+    void update(); //更新可用机型
+    VModelFamilly *at(int num);
 protected:
 
-#define  OS_LIST_SIZE  8
-    VModelFamilly *OSlist[OS_LIST_SIZE] = {
-        //目前可用os类型
+#define  MODEL_LIST_SIZE  2
+    VModelFamilly *AllModelFamilly[MODEL_LIST_SIZE] = {
+        //目前可用类型
         new VModelFamilly("云电脑", "vc2"),
+        new VModelFamilly("vhf云电脑", "vhf"),
 
     };
 };

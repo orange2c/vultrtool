@@ -29,7 +29,7 @@ VPSMODE_DATA::VPSMODE_DATA( QJsonObject *vps_json )
     for( int i = 0; i<location_json.size(); i++ )
         location_strlist->append( location_json.at(i).toString()  );
 
-    local->transfer(location_strlist);
+    local->update(location_strlist);
 }
 
 VPSMODE_DATA::~VPSMODE_DATA()
@@ -51,8 +51,7 @@ QString VPSMODE_DATA::model_id()
 }
 
 /******************VModelFamilly*********************/
-VModelFamilly::VModelFamilly()
-{}
+
 VModelFamilly::VModelFamilly( QString name, QString type_name  )
 {
     setname(name);
@@ -63,5 +62,44 @@ void VModelFamilly::append( QJsonObject *vps_json )
     VPSMODE_DATA *newmodel = new VPSMODE_DATA( vps_json );
     LinkedList::append( newmodel );
 }
+void VModelFamilly::takeSame(QJsonArray *vps_list)
+{
+    SPIDER spider;
+    QJsonArray thisModel;
+    spider.take( vps_list, "type", QJsonValue(this->model_type), &thisModel ); //将所有vc2机型的信息json，都提取出来
+
+    QJsonArray non_delete;
+    spider.take(  &thisModel, "locations", QJsonValue("sao"), &non_delete ); //删除巴西特供版机型（和其他地区机型相同，但贵%50）
+    spider.take(  &thisModel, "locations", QJsonValue(), &non_delete ); //删除可部署地区为空的（不可用机型）
+    int liset_size = thisModel.size();
+    for( int i = 0; i<liset_size; i++ )
+    {
+        QJsonObject obj = thisModel.at(i).toObject();
+        append( &obj );
+    }
+    qDebug( "%s共%d种可用机型",qPrintable(model_type),  size() );
+
+}
+VModelFamilly* VPSMODEL::at(int num)
+{
+    if( num<0 ) num=0;
+    if( num>=MODEL_LIST_SIZE )num = MODEL_LIST_SIZE-1;
+    return AllModelFamilly[ num ];
+}
+void VPSMODEL::update()
+{
+    SPIDER spider;
+    spider.get( "plans" );
+    QStringList match_str;
+
+    match_str << "plans";
+    QJsonArray *vps_list = new QJsonArray(spider.path( &match_str ).toArray());
+    for( int i=0; i<MODEL_LIST_SIZE; i++ )
+    {
+        qDebug("moedl-i=%d", i);
+        AllModelFamilly[i]->takeSame(vps_list);
+    }
 
 
+
+}
