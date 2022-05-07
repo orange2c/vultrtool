@@ -1,48 +1,108 @@
 #include "vpsmodel_locations.h"
+int airdata::count = 0;
 
+airdata::airdata( QString code, QString translate, countryENUM thecountry)
+{
+    airport = code;
+    name =translate;
+    country = thecountry;
+    count++;
+}
+airdata::airdata(QString code)
+{
+    airport = code;
+    name = code;
+    country = Eother;
+    count++;
+}
 
+void AirFamilly::append(QString code, QString translate, countryENUM thecountry)
+{
+    airdata *newdata = new airdata( code, translate, thecountry );
+    LinkedList::append(newdata);
+}
+void AirFamilly::append(airdata *data)
+{
+    LinkedList::append(data);
+}
+void AirFamilly::append(QString code)
+{
+    airdata *newdata = new airdata(code);
+    LinkedList::append(newdata);
+}
+AirFamilly::AirFamilly(QString name)
+{
+    setname(name);
+}
+VPSMODEL_LOCATIONS::VPSMODEL_LOCATIONS()
+{
+    //创建一个familly，存储所有已知机场及其代号
+    //申请EcountryMAX个familly,待后续transfer时存储结果
+    all_air->append("ewr", "纽约", EAmerican);
+    all_air->append("ord", "芝加哥", EAmerican);
+    all_air->append("ams", "阿姆斯特丹", EHolland);
 
-//QStringList VPSMODEL_LOCATIONS::countryNAME = {
-//    "美国", "法国", "英国",
-//    "日本", "荷兰"
-//};
+    transfer_locations[EAmerican] = new AirFamilly("American");
+    transfer_locations[EFrance] = new AirFamilly("EFrance");
+    transfer_locations[EEngland] = new AirFamilly("EEngland");
+    transfer_locations[EJapan] = new AirFamilly("EJapan");
+    transfer_locations[EHolland] = new AirFamilly("EHolland");
+    transfer_locations[Eother] = new AirFamilly("other");
 
-//airport VPSMODEL_LOCATIONS::find_aircode( QString code)
-//{
-//    airport all_aircode[5];
-//    all_aircode[0] = {.aircode="ewr",.country=Amreican,.translate="纽约"};
+}
+VPSMODEL_LOCATIONS::~VPSMODEL_LOCATIONS()
+{
 
+}
+int VPSMODEL_LOCATIONS::size()
+{
+    return size_locations;
+}
+AirFamilly* VPSMODEL_LOCATIONS::at(int num)
+{
+    if( num<0 ) num=0;
+    if( num>=size_locations ) num = size_locations-1;
+    return locations[num];
+}
+void VPSMODEL_LOCATIONS::addtolocations(QString aircode)
+{
+    for( int i=0; i<all_air->size(); i++ )
+    {
+        if( QString::compare( aircode, all_air->at(i)->airport )==0 )
+        {
+            transfer_locations[ all_air->at(i)->country ]->append( all_air->at(i)  );
+            return;
+        }
+    }
+    transfer_locations[Eother]->append(aircode);
+}
 
-//}
+void VPSMODEL_LOCATIONS::transfer(QStringList *source)
+{
+    size_locations = 0; //
+    for( int i=0; i<Eother+1; i++ )
+    {
+        transfer_locations[i]->clear();
+    }
 
+    for( int i=0; i< source->size(); i++ )
+    {
+        addtolocations( source->at(i) );
+    }
+    int p_locations = 0;
+    for( int i=0;i<Eother+1; i++ )
+    {
+        if( transfer_locations[i]->size() >0 )
+        {
+            locations[p_locations] = transfer_locations[i];
+            p_locations++;
+            size_locations++;
+        }
+    }
+    qDebug("american=%d", transfer_locations[EAmerican]->size() );
+    qDebug("可用地区为%d", size_locations );
 
-
-
-//VPSMODEL_LOCATIONS::VPSMODEL_LOCATIONS()
-//{
-
-//}
-
-//struct airport all[]=
-//{
-//    {.aircode="ewr", .translate="纽约",   },
-//    {.aircode="ord", .translate="芝加哥" },
-//};
-
-//aircode::aircode( QString code, QString translate, countryENUM thecountry)
-//{
-//    airport = code;
-//    cn =translate;
-//    country = thecountry;
-//    count++;
-//}
-
-
-//country_familly::country_familly(QString name)
-//{
-//    setname(name);
-//}
-
+}
 
 //QStringList locations_cn ={ "美国-纽约", "美国-芝加哥", "美国-德克萨斯", "美国-洛杉矶", "美国-亚特兰大",
 //                                "荷兰-阿姆斯特丹", "英国-伦敦", "德国-法兰克福", "美国-加利福尼亚", "澳大利亚-悉尼",
@@ -60,17 +120,6 @@
 //countryENUM locations_country[] = { EAmerican, EAmerican, EAmerican, EAmerican, EAmerican
 
 //                                };
-
-//void VPSMODEL_LOCATIONS::transfer( QStringList *source )
-//{
-
-//    aircode all_air[]={
-//        aircode( "pwr","s", EAmerican ),
-
-//    };
-
-//    all_air[0].country = EAmerican ;
-
 
 //        QStringList *locations = new QStringList();
 //        int j=0;

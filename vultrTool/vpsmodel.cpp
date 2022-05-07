@@ -63,19 +63,19 @@ VPSMODEL::VPSMODEL( QJsonObject *vps_json )
     disk_count = SPIDER::path( vps_json, "disk_count" ).toInt() ;
     monthly_cost =  SPIDER::path( vps_json, "monthly_cost" ).toDouble() ;
 
-    QJsonArray location_json = SPIDER::path( vps_json, "locations" ).toArray();
-    for( int i = 0; i<location_json.size(); i++ )
-        locationsENp->append( location_json.at(i).toString()  );
-
-    locationsCNp = location_transfer(locationsENp);
-
     introduceP->append(QString::number(vcpu_count)+'\t');
     introduceP->append(QString::number(ram/1024)+"g\t");
     introduceP->append(QString::number(disk)+"G\t");
     introduceP->append(QString::number(monthly_cost/672, 'f', 4 )+ "$\t");
     introduceP->append(QString::number(monthly_cost)+ "$");
 
+    QJsonArray location_json = SPIDER::path( vps_json, "locations" ).toArray();
+    for( int i = 0; i<location_json.size(); i++ )
+        locationsENp->append( location_json.at(i).toString()  );
 
+    locationsCNp = location_transfer(locationsENp);
+
+    local->transfer(locationsENp);
 }
 
 VPSMODEL::~VPSMODEL()
@@ -83,6 +83,7 @@ VPSMODEL::~VPSMODEL()
     delete introduceP;
     delete locationsCNp;
     delete locationsENp;
+    delete local;
 }
 
 QString VPSMODEL::introduce()

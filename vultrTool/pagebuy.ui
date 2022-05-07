@@ -66,18 +66,18 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="Box_locations">
+   <widget class="QComboBox" name="Box_locations1">
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>430</y>
-      <width>161</width>
-      <height>51</height>
+      <y>440</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>13</pointsize>
      </font>
     </property>
     <property name="maxVisibleItems">
@@ -85,15 +85,15 @@
     </property>
     <item>
      <property name="text">
-      <string>美国-加利福尼亚</string>
+      <string>美国</string>
      </property>
     </item>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>440</y>
+      <x>270</x>
+      <y>540</y>
       <width>171</width>
       <height>41</height>
      </rect>
@@ -110,8 +110,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>500</y>
+      <x>450</x>
+      <y>530</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -145,7 +145,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>520</y>
+      <y>530</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -166,8 +166,8 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>520</y>
-      <width>91</width>
+      <y>530</y>
+      <width>101</width>
       <height>22</height>
      </rect>
     </property>
@@ -176,7 +176,7 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>550</y>
+      <y>560</y>
       <width>161</width>
       <height>22</height>
      </rect>
@@ -248,26 +248,25 @@
      <number>-1</number>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QComboBox" name="Box_locations2">
     <property name="geometry">
      <rect>
-      <x>-10</x>
-      <y>480</y>
-      <width>351</width>
+      <x>100</x>
+      <y>470</y>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>13</pointsize>
      </font>
     </property>
-    <property name="text">
-     <string>!下拉选项内若出现3位字母的，则是机房所处地的机场代码</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
+    <item>
+     <property name="text">
+      <string>纽约</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

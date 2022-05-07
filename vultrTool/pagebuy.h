@@ -37,6 +37,7 @@ private slots:
     void on_pushButton_clicked();
     void on_Box_OS1_currentIndexChanged(int index);
     void on_Box_OS2_currentIndexChanged(int index);
+    void on_Box_locations1_currentIndexChanged(int index);
 };
 
 #endif // PAGEBUY_H

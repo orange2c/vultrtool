@@ -52,14 +52,13 @@ void PageBuy::showEvent(QShowEvent *event)
 }
 void PageBuy::update_model_locations()
 {
-    ui->Box_locations->clear();
+    ui->Box_locations1->clear();
+    ui->Box_locations2->clear();
 //    ui->Box_locations->addItem( now_model->introduce() );
-    for( int i = 0; i<now_model->locationsCN().size(); i++ )
+    for( int i = 0; i< now_model->local->size() ; i++ )
     {
-        ui->Box_locations->addItem( now_model->locationsCN().at(i) );
+        ui->Box_locations1->addItem( now_model->local->at(i)->name() );
     }
-
-    log(  now_model->introduce() );
 }
 
 void PageBuy::on_vpslist_tabBarClicked(int index)
@@ -80,7 +79,7 @@ void PageBuy::on_list_model_itemClicked(QListWidgetItem *item)
 void PageBuy::on_pushButton_clicked()
 {
     qDebug("购买机型id：%s",qPrintable( now_model->model_id()) );
-    int location_num = ui->Box_locations->currentIndex();
+    int location_num = ui->Box_locations1->currentIndex();
     qDebug("购买位置：%s", qPrintable( now_model->locationsEN().at(location_num)) );
 //    qDebug("部署系统：%s",qPrintable(  ));
 }
@@ -104,5 +103,16 @@ void PageBuy::on_Box_OS2_currentIndexChanged(int index)
 //    int num_os = ui->Box_OS2->currentIndex();
     now_os = vr->os->at(num_osfamilly)->at(index );
     qDebug("现在选择的os是%s", qPrintable(now_os->name));
+}
+
+
+void PageBuy::on_Box_locations1_currentIndexChanged(int index)
+{
+    ui->Box_locations2->clear();
+    for( int j = 0; j< now_model->local->at(index)->size() ; j++ )
+    {
+        ui->Box_locations2->addItem( now_model->local->at(index)->at(j)->name );
+    }
+    log(  now_model->introduce() );
 }
 

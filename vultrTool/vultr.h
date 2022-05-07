@@ -28,6 +28,7 @@ public:
 
     VModelFamilly *vc2 = new VModelFamilly();
     VPSOS *os =new VPSOS;  //部署新vps可用的os
+
 protected:
     static QByteArray *API_KEY ;
     SPIDER *spider;

@@ -19,6 +19,9 @@ public:
     QStringList locationsCN();
     QStringList locationsEN();
 
+
+    VPSMODEL_LOCATIONS *local = new VPSMODEL_LOCATIONS();
+
 protected:
     QString id;
     int type = 0;
