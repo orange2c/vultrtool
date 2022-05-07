@@ -22,22 +22,15 @@ public:
     void update_message(); //更新个人信息
     void update_model();
 
-    QString email;
-    QString username;
-    double Balance;
+    static QString email;
+    static QString username;
+    static double Balance;
 
     VModelFamilly *vc2 = new VModelFamilly();
-
-#define  OS_LIST_SIZE  8
-    VOsFamilly *OSlist[OS_LIST_SIZE] ; //目前可用os类型
-
-
-
+    VPSOS *os =new VPSOS;
 protected:
     static QByteArray *API_KEY ;
     SPIDER *spider;
-
-
 
 public Q_SLOTS:
     void log_Transfer( QString log_text );
@@ -46,5 +39,6 @@ signals:
     void log( QString log_text );
 
 };
+
 
 #endif // VULTR_H

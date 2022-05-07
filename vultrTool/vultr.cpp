@@ -6,29 +6,22 @@
 #include <QObject>
 #include <spider.h>
 
+QString VULTR::email = "NULL";
+QString VULTR::username = "NULL";
+double VULTR::Balance = 0.0;
 QByteArray* VULTR::API_KEY = NULL;
+
 VULTR::VULTR()
 {
     spider = new SPIDER( this->API_KEY );
     QObject::connect( spider, SIGNAL(log(QString)), this, SLOT(log_Transfer(QString)) );
-    OSlist[0] = new VOsFamilly("ubuntu");
-    OSlist[1] = new VOsFamilly("centos");
-    OSlist[2] = new VOsFamilly("debian");
-    OSlist[3] = new VOsFamilly("freebsd");
-    OSlist[4] = new VOsFamilly("fedora");
-    OSlist[5] = new VOsFamilly("vzlinux");
-    OSlist[6] = new VOsFamilly("openbsd");
-    OSlist[7] = new VOsFamilly("other");
+
 }
 VULTR::~VULTR()
 {
     delete vc2;
     delete spider;
-    int OSlist_size = sizeof(OSlist) / sizeof(OSlist[0]);
-    for( int i=0; i<OSlist_size; i++)
-    {
-        delete OSlist[i];
-    }
+    delete os;
 }
 
 void VULTR::log_Transfer( QString log_text )
@@ -38,9 +31,11 @@ void VULTR::log_Transfer( QString log_text )
 
 bool VULTR::login()
 {
-    spider->get( "account" );
-    QStringList match_str = {"account","email"};
-    if(  spider->path( &match_str ).toString() != NULL )
+//    spider->get( "account" );
+//    QStringList match_str = {"account","email"};
+//    if(  spider->path( &match_str ).toString() != NULL )
+    update_message();
+    if( this->username != NULL )
     {
         emit log( "密钥正确" );
         return true;
@@ -60,10 +55,12 @@ void VULTR::update_message()
     QStringList match_str;
 
     match_str << "account" <<"email";
+    email.clear();
     email = spider->path( &match_str).toString();
     emit log(email);
 
     match_str<< "account" << "name"; //match函数内会清空本qstringlist
+    username.clear();
     username = spider->path( &match_str ).toString();
     emit log(username);
 
@@ -107,28 +104,9 @@ void VULTR::update_model()
     spider->get("os");
     match_str << "os";
     QJsonArray os_all_json = spider->path( &match_str ).toArray();
-    VOsFamilly *os_all = OSlist[OS_LIST_SIZE-1];//存储所有可用os
-    for( int i=0; i<os_all_json.size(); i++ )
-    {
-        QJsonObject os_json = os_all_json.at(i).toObject();
-        os_all->append( &os_json );
-    }
-
-    for( int listp=0; listp<( OS_LIST_SIZE-1); listp++ )//计算数组长度，控制为循环次数
-    {
-        int i =0;
-        while (i < os_all->size())
-        {
-//            qDebug("i=%d,id=%d", i, os_all->at(i)->id);
-            if( OSlist[listp]->appendSame( os_all->at(i) ) )
-            {
-                os_all->deleteat(i);
-            }
-             i++;
-        }
-    }
+    os->analyze(&os_all_json);
 
 
-    qDebug("os size=%d",os_all->size() );
+//    qDebug("os size=%d",os_all->size() );
 //    delete os_all;
 }

@@ -8,11 +8,11 @@
 #include "spider.h"
 #include "linkedlist.h"
 
-class VPSOS : public QObject
+class OSDATA : public QObject
 {
     Q_OBJECT
 public:
-    VPSOS( QJsonObject *os_json ); //传入一串带os信息的json，拆解其中信息
+    OSDATA( QJsonObject *os_json ); //传入一串带os信息的json，拆解其中信息
 
     int id;
     QString name;
@@ -21,17 +21,38 @@ public:
 
 };
 
-class VOsFamilly: public LinkedList< VPSOS >
+class VOsFamilly: public LinkedList< OSDATA >
 {
 public:
     VOsFamilly( QString name ); //传入familly名称
 
     void append( QJsonObject *os_json );
-    bool appendSame( VPSOS *os ); //会判断传入的os的familly是否跟自己一致，相同则append然后返回true
-
+    bool appendSame( OSDATA *os ); //会判断传入的os的familly是否跟自己一致，相同则append然后返回true
 
 };
+class VPSOS
+{
+public:
+    ~VPSOS();
+    VOsFamilly *at( int num );
+    void analyze(QJsonArray *all_os_json); //传入包含所有os的json数组
 
+protected:
+#define  OS_LIST_SIZE  8
+    VOsFamilly *OSlist[OS_LIST_SIZE] = {
+        //目前可用os类型
+        new VOsFamilly("ubuntu"),
+        new VOsFamilly("centos"),
+        new VOsFamilly("debian"),
+        new VOsFamilly("freebsd"),
+        new VOsFamilly("fedora"),
+        new VOsFamilly("vzlinux"),
+        new VOsFamilly("openbsd"),
+        new VOsFamilly("other")
+    };
+
+};
+//    };
 
 
 #endif // VPSOS_H

@@ -24,7 +24,7 @@ PageBuy::PageBuy(QWidget *parent) :
 
     for( int i=0; i<(OS_LIST_SIZE); i++ )
     {
-        ui->Box_OS1->addItem( vr->OSlist[i]->name() );
+        ui->Box_OS1->addItem( vr->os->at(i)->name() );
     }
 }
 
@@ -90,9 +90,9 @@ void PageBuy::on_Box_OS1_currentIndexChanged(int index)
 {
     if( ui->Box_OS2->count()>0 )
         ui->Box_OS2->clear();
-    for( int i =0; i< vr->OSlist[index]->size(); i++ )
+    for( int i =0; i<  vr->os->at(index)->size() ; i++ )
     {
-        ui->Box_OS2->addItem(vr->OSlist[index]->at(i)->name);
+        ui->Box_OS2->addItem( vr->os->at(index)->at(i)->name);
     }
     qDebug("os1改变为%d",index);
 }
@@ -102,7 +102,7 @@ void PageBuy::on_Box_OS2_currentIndexChanged(int index)
 {
     int num_osfamilly = ui->Box_OS1->currentIndex();
 //    int num_os = ui->Box_OS2->currentIndex();
-    now_os = vr->OSlist[ num_osfamilly ]->at(index );
+    now_os = vr->os->at(num_osfamilly)->at(index );
     qDebug("现在选择的os是%s", qPrintable(now_os->name));
 }
 

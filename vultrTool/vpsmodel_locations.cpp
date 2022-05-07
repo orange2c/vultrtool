@@ -29,19 +29,19 @@
 //    {.aircode="ord", .translate="芝加哥" },
 //};
 
-aircode::aircode( QString code, QString translate, countryENUM thecountry)
-{
-    airport = code;
-    cn =translate;
-    country = thecountry;
-    count++;
-}
+//aircode::aircode( QString code, QString translate, countryENUM thecountry)
+//{
+//    airport = code;
+//    cn =translate;
+//    country = thecountry;
+//    count++;
+//}
 
 
-country_familly::country_familly(QString name)
-{
-    setname(name);
-}
+//country_familly::country_familly(QString name)
+//{
+//    setname(name);
+//}
 
 
 //QStringList locations_cn ={ "美国-纽约", "美国-芝加哥", "美国-德克萨斯", "美国-洛杉矶", "美国-亚特兰大",
@@ -61,44 +61,44 @@ country_familly::country_familly(QString name)
 
 //                                };
 
-void VPSMODEL_LOCATIONS::transfer( QStringList *source )
-{
+//void VPSMODEL_LOCATIONS::transfer( QStringList *source )
+//{
 
-    aircode all_air[]={
-        aircode( "pwr","s", EAmerican ),
+//    aircode all_air[]={
+//        aircode( "pwr","s", EAmerican ),
 
-    };
+//    };
 
-    all_air[0].country = EAmerican ;
+//    all_air[0].country = EAmerican ;
 
 
-        QStringList *locations = new QStringList();
-        int j=0;
-        for( int i = 0; i<source->size(); i++ )
-        {
-            for( j=0; j<locations_en.size(); j++ )
-            {
+//        QStringList *locations = new QStringList();
+//        int j=0;
+//        for( int i = 0; i<source->size(); i++ )
+//        {
+//            for( j=0; j<locations_en.size(); j++ )
+//            {
 
-                if( QString::compare( source->at(i), locations_en.at(j) ) == 0 )
-                {
-                    locations->append( locations_cn.at(j) ); //
-                    locations_cn.removeAt(j);
-                    locations_en.removeAt(j); //删除查找到的项，下次查找时就能减少时间
-                    break;
-                }
-                else if( j == locations_en.size()-1 )//即遍历到数组最后一个也没找到匹配的
-                {
-                    locations->append( source->at(i) ); //则原样返回
-                }
-            }
+//                if( QString::compare( source->at(i), locations_en.at(j) ) == 0 )
+//                {
+//                    locations->append( locations_cn.at(j) ); //
+//                    locations_cn.removeAt(j);
+//                    locations_en.removeAt(j); //删除查找到的项，下次查找时就能减少时间
+//                    break;
+//                }
+//                else if( j == locations_en.size()-1 )//即遍历到数组最后一个也没找到匹配的
+//                {
+//                    locations->append( source->at(i) ); //则原样返回
+//                }
+//            }
 
-        }
+//        }
 
-}
-VPSMODEL_LOCATIONS::~VPSMODEL_LOCATIONS()
-{
-    for(int i=0; i<EcountryMAX; i++ )
-        delete allfamilly[i];
-}
+//}
+//VPSMODEL_LOCATIONS::~VPSMODEL_LOCATIONS()
+//{
+//    for(int i=0; i<EcountryMAX; i++ )
+//        delete allfamilly[i];
+//}
 
 
