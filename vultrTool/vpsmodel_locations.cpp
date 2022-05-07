@@ -34,11 +34,50 @@ AirFamilly::AirFamilly(QString name)
 {
     setname(name);
 }
+//QStringList locations_cn ={ "美国-纽约", "美国-芝加哥", "美国-德克萨斯", "美国-洛杉矶", "美国-亚特兰大",
+//                                "荷兰-阿姆斯特丹", "英国-伦敦", "德国-法兰克福", "美国-加利福尼亚", "澳大利亚-悉尼",
+//                               "加拿大-多伦多", "法国-巴黎", "日本-东京", "波兰-华沙", "西班牙-马德里",
+//                               "韩国-仁川", "美国-迈阿密", "新加坡", "瑞典-斯德哥尔摩", "墨西哥",
+//                               "澳大利亚-墨尔本", "美国-西雅图"
+//                             };
+
+//QStringList locations_en = { "ewr","ord","dfw","lax","atl",
+//                                "ams","lhr","fra","sjc","syd",
+//                                "yto","cdg","nrt","waw","mad",
+//                                "icn","mia","sgp","sto","mex",
+//                                "mel", "sea"
+//                               };
+
 VPSMODEL_LOCATIONS::VPSMODEL_LOCATIONS()
 {
     all_air->append("ewr", "纽约", EAmerican);
     all_air->append("ord", "芝加哥", EAmerican);
+    all_air->append("dfw", "达拉斯", EAmerican);
+    all_air->append("lax", "洛杉矶", EAmerican);
+    all_air->append("atl", "亚特兰大", EAmerican);
+
     all_air->append("ams", "阿姆斯特丹", EHolland);
+    all_air->append("lhr", "伦敦", EEngland);
+    all_air->append("fra", "法兰克福", EGermany);
+    all_air->append("sjc", "加利福尼亚", EAmerican);
+    all_air->append("syd", "悉尼", EAustralia);
+
+    all_air->append("yto", "多伦多", ECanada);
+    all_air->append("cdg", "巴黎", EFrance);
+    all_air->append("nrt", "东京", EJapan);
+    all_air->append("waw", "华沙", EPoland);
+    all_air->append("mad", "马德里", ESpain);
+
+
+    all_air->append("icn", "仁川", EKorea);
+    all_air->append("mia", "迈阿密", EAmerican);
+    all_air->append("sgp", "新加坡", ESingapore);
+    all_air->append("sto", "斯德哥尔摩", ESweden);
+    all_air->append("mex", "墨西哥城", EMexico);
+
+    all_air->append("mel", "墨尔本", EAustralia);
+    all_air->append("sea", "西雅图", EAmerican);
+
 
 }
 VPSMODEL_LOCATIONS::~VPSMODEL_LOCATIONS()
@@ -108,37 +147,5 @@ void VPSMODEL_LOCATIONS::update(QStringList *source)
 //                                "icn","mia","sgp","sto","mex",
 //                                "mel", "sea"
 //                               };
-//countryENUM locations_country[] = { EAmerican, EAmerican, EAmerican, EAmerican, EAmerican
-
-//                                };
-
-//        QStringList *locations = new QStringList();
-//        int j=0;
-//        for( int i = 0; i<source->size(); i++ )
-//        {
-//            for( j=0; j<locations_en.size(); j++ )
-//            {
-
-//                if( QString::compare( source->at(i), locations_en.at(j) ) == 0 )
-//                {
-//                    locations->append( locations_cn.at(j) ); //
-//                    locations_cn.removeAt(j);
-//                    locations_en.removeAt(j); //删除查找到的项，下次查找时就能减少时间
-//                    break;
-//                }
-//                else if( j == locations_en.size()-1 )//即遍历到数组最后一个也没找到匹配的
-//                {
-//                    locations->append( source->at(i) ); //则原样返回
-//                }
-//            }
-
-//        }
-
-//}
-//VPSMODEL_LOCATIONS::~VPSMODEL_LOCATIONS()
-//{
-//    for(int i=0; i<EcountryMAX; i++ )
-//        delete allfamilly[i];
-//}
 
 

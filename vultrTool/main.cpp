@@ -1,5 +1,4 @@
 
-
 #include "pagelogin.h"
 #include <QApplication>
 

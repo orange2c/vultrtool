@@ -35,7 +35,20 @@ public:
 #define EEngland    2
 #define EJapan     3
 #define EHolland     4
-#define Eother     5
+#define EGermany    5
+#define EAustralia  6
+
+#define ECanada     7
+#define EPoland     8
+#define ESpain      9
+#define EKorea      10
+#define ESingapore  11
+#define ESweden     12
+#define EMexico     13
+
+
+#define Eother     14
+
 
 class VPSMODEL_LOCATIONS
 {
@@ -54,13 +67,22 @@ protected:
     AirFamilly *all_air = new AirFamilly("all");
 
     AirFamilly *transfer_locations[Eother+1]=
-        { //保存transfer的查找结果
-            new AirFamilly("美国"),
-            new AirFamilly("法国"),
-            new AirFamilly("英国"),
-            new AirFamilly("日本"),
-            new AirFamilly("荷兰"),
-            new AirFamilly("无翻译")
+    { //保存transfer的查找结果
+        new AirFamilly("美国"),
+        new AirFamilly("法国"),
+        new AirFamilly("英国"),
+        new AirFamilly("日本"),
+        new AirFamilly("荷兰"),
+        new AirFamilly("德国"),
+        new AirFamilly("澳大利亚"),
+        new AirFamilly("加拿大"),
+        new AirFamilly("波兰"),
+        new AirFamilly("西班牙"),
+        new AirFamilly("韩国"),
+        new AirFamilly("新加坡"),
+        new AirFamilly("瑞典"),
+        new AirFamilly("墨西哥"),
+        new AirFamilly("无翻译")
         };
 };
 

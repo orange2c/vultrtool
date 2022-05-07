@@ -52,10 +52,11 @@ QString VPSMODE_DATA::model_id()
 
 /******************VModelFamilly*********************/
 
-VModelFamilly::VModelFamilly( QString name, QString type_name  )
+VModelFamilly::VModelFamilly( QString name, QString type_name, QString part  )
 {
     setname(name);
     model_type = type_name;
+    type_part = part;
 }
 void VModelFamilly::append( QJsonObject *vps_json )
 {
@@ -66,7 +67,7 @@ void VModelFamilly::takeSame(QJsonArray *vps_list)
 {
     SPIDER spider;
     QJsonArray thisModel;
-    spider.take( vps_list, "type", QJsonValue(this->model_type), &thisModel ); //将所有vc2机型的信息json，都提取出来
+    spider.take( vps_list, "type", QJsonValue(this->model_type), &thisModel, "id", type_part ); //将所有model_type机型的信息json，都提取出来
 
     QJsonArray non_delete;
     spider.take(  &thisModel, "locations", QJsonValue("sao"), &non_delete ); //删除巴西特供版机型（和其他地区机型相同，但贵%50）

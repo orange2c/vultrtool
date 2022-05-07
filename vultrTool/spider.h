@@ -26,8 +26,7 @@ public:
     void get(QString path);
     QJsonValue path( QStringList *list );  //从上一次通信所接收的json中，根据list的规则匹配,适用于寻找被多层嵌套的属性
     static QJsonValue path( QJsonObject *obj,  QString type );  //从obj中返回type属性的值
-    void take( QJsonArray *text, QString type, QJsonValue value, QJsonArray *ReturnValue );   //从text中，将type为value的所有项目，剪切组成新的数组，保存起来
-//    void take( QJsonArray *text, QString type, QJsonArray value, QJsonArray *ReturnValue );   //适用于type是个json数组，匹配
+    void take( QJsonArray *text, QString type, QJsonValue value, QJsonArray *ReturnValue, QString type2="", QJsonValue part="" );   //从text中，将type为value的所有项目，剪切组成新的数组，保存起来
     QJsonArray *match( QJsonArray *text, QString type, QJsonValue value );   //从text中，寻找type为value的所有项目
 
 protected:

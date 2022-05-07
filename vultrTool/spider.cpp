@@ -107,31 +107,57 @@ QJsonValue SPIDER::path( QJsonObject *obj,  QString type )
         return "Not Find";
     }
 }
-void SPIDER::take( QJsonArray *text, QString type, QJsonValue value, QJsonArray *ReturnValue )
+void SPIDER::take(QJsonArray *text, QString type, QJsonValue value, QJsonArray *ReturnValue, QString type2, QJsonValue part)
 {
     if( value.isString() )
     {
         emit log("isString");
         QString take_value = value.toString();
+        QString part_value = part.toString();
+        bool half_match =false;
+        if( part_value.size()>0 ) //如果第二部分半匹配存在参数
+        {
+            half_match =true;
+        }
         emit log(take_value);
         int i = 0;
+
         while( i<= text->size()-1 )
         {
-            QJsonValue text_value = text->at(i).toObject().value(type) ;
-            QString traget;
-            if( text_value.isString() )
+            QJsonValue text_take_value = text->at(i).toObject().value(type) ;
+            QJsonValue text_part_value = text->at(i).toObject().value(type2) ;
+            QString take_traget;
+            QString part_traget = text_part_value.toString() ;
+
+//            QJsonValue text_value
+            if( text_take_value.isString() )
             {
-                traget.append(text_value.toString()) ;
+                take_traget.append(text_take_value.toString()) ;
             }
-            else if( text_value.isArray() )
+            else if( text_take_value.isArray() )
             {
-                traget.append(text_value.toArray().at(0).toString()) ;
+                take_traget.append(text_take_value.toArray().at(0).toString()) ;
             }
 
-            if( QString::compare( traget, take_value ) == 0 )
+
+
+            if( QString::compare( take_traget, take_value ) == 0 )
             {
-                ReturnValue->append( text->at(i) );
-                text->removeAt(i);
+                if( half_match )
+                {
+                    if( part_traget.contains( part_value ))
+                    {
+                        ReturnValue->append( text->at(i) );
+                        text->removeAt(i);
+                    }
+                    else
+                        i++;
+                }
+                else
+                {
+                    ReturnValue->append( text->at(i) );
+                    text->removeAt(i);
+                }
             }
             else
                 i++;

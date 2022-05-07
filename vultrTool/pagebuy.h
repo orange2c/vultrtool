@@ -23,7 +23,9 @@ private:
     VPSMODE_DATA *now_model;
     OSDATA *now_os;
 
-    void update_model_list();
+    void buymessage_change(); //当选择机型，os，locations等改变时，调用该函数来读取并更新数据
+
+//    void update_model_list();
     void update_model_locations();
     void log( QString log_text ); //将传入字符串在log窗口显示出来
 
@@ -33,12 +35,12 @@ private slots:
     void showEvent(QShowEvent *event);
 
     void on_vpslist_tabBarClicked(int index);
-    void on_list_model_itemClicked(QListWidgetItem *item);
     void on_pushButton_clicked();
     void on_Box_OS1_currentIndexChanged(int index);
     void on_Box_OS2_currentIndexChanged(int index);
     void on_Box_locations1_currentIndexChanged(int index);
     void on_vpslist_currentChanged(int index);
+    void on_list_model_currentRowChanged(int currentRow);
 };
 
 #endif // PAGEBUY_H

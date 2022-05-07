@@ -11,17 +11,19 @@ PageBuy::PageBuy(QWidget *parent) :
     vr = new VULTR();
     QObject::connect( vr, SIGNAL(log(QString)), this, SLOT(log_slots(QString)) );
 
-    vr->update_model();
+    vr->update_model(); //获取所有可用机型
     ui->list0->setMovement( QListView::Static );
     ui->list0->item(0)->setText( "cpu\tRAM\t硬盘\t分钟价格\t满月价格");
 
     int numModelFamilly = ui->list_model->currentRow();
-    PageBuy::on_vpslist_currentChanged(numModelFamilly);
+    PageBuy::on_vpslist_currentChanged(numModelFamilly); //触发一次机型种类切换
 
+    ui->Box_OS1->clear();
     for( int i=0; i<(OS_LIST_SIZE); i++ )
     {
         ui->Box_OS1->addItem( vr->os->at(i)->name() );
     }
+
 }
 
 PageBuy::~PageBuy()
@@ -72,22 +74,12 @@ void PageBuy::on_vpslist_tabBarClicked(int index)
     qDebug("click%d\n", index);
 }
 
-void PageBuy::on_list_model_itemClicked(QListWidgetItem *item)
-{
-    int num = item->listWidget()->currentRow();
-    qDebug("%d",item->listWidget()->currentRow());
-    now_model = vr->model->at( ui->list_model->currentRow() )->at(num);
 
-    update_model_locations();
-
-}
 
 void PageBuy::on_pushButton_clicked()
 {
     qDebug("购买机型id：%s",qPrintable( now_model->model_id()) );
-//    int location_num = ui->Box_locations1->currentIndex();
-//    qDebug("购买位置：%s", qPrintable( now_model->locationsEN().at(location_num)) );
-//    qDebug("部署系统：%s",qPrintable(  ));
+
 }
 
 
@@ -129,6 +121,8 @@ void PageBuy::on_Box_locations1_currentIndexChanged(int index)
 
 void PageBuy::on_vpslist_currentChanged(int index)
 {
+
+//    update_model_locations(); //根据当前默认机型显示可部署位置栏
     qDebug("computer type change %d", index);
     if( ui->list_model->count()>0 )
         ui->list_model->clear();
@@ -138,5 +132,15 @@ void PageBuy::on_vpslist_currentChanged(int index)
         ui->list_model->addItem( vr->model->at(index)->at(i)->introduce() );
     }
     ui->list_model->setCurrentRow(0) ;
+}
+
+
+void PageBuy::on_list_model_currentRowChanged(int currentRow)
+{
+//    int num = item->listWidget()->currentRow();
+    qDebug("currentRow=%d",currentRow);
+    now_model = vr->model->at( ui->vpslist->currentIndex() )->at(currentRow);
+
+    update_model_locations();
 }
 
