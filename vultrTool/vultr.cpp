@@ -6,7 +6,7 @@
 #include <QObject>
 #include <spider.h>
 
-QString VULTR::email = "NULL";
+QString VULTR::email = "0";
 QString VULTR::username = "NULL";
 double VULTR::Balance = 0.0;
 QByteArray* VULTR::API_KEY = NULL;
@@ -31,11 +31,8 @@ void VULTR::log_Transfer( QString log_text )
 
 bool VULTR::login()
 {
-//    spider->get( "account" );
-//    QStringList match_str = {"account","email"};
-//    if(  spider->path( &match_str ).toString() != NULL )
     update_message();
-    if( this->username != NULL )
+    if( this->email.size()>1 )
     {
         emit log( "密钥正确" );
         return true;
@@ -63,7 +60,6 @@ void VULTR::update_message()
     username.clear();
     username = spider->path( &match_str ).toString();
     emit log(username);
-
 
     match_str<< "account" << "balance"; //match函数内会清空本qstringlist
      Balance = spider->path( &match_str ).toDouble();
@@ -100,13 +96,7 @@ void VULTR::update_model()
     qDebug( "vc2共%d种可用机型",vc2->size() );
 
 
+    //获取可用os信息
+    os->update();
 
-    spider->get("os");
-    match_str << "os";
-    QJsonArray os_all_json = spider->path( &match_str ).toArray();
-    os->analyze(&os_all_json);
-
-
-//    qDebug("os size=%d",os_all->size() );
-//    delete os_all;
 }

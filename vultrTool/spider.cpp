@@ -1,11 +1,12 @@
 #include "spider.h"
+QByteArray* SPIDER::API_KEY = NULL;
 
 SPIDER::SPIDER(  )
 {
 }
+
 SPIDER::SPIDER( QByteArray *KEY )
 {
-    NetManager = new QNetworkAccessManager();
     API_KEY = KEY;
 }
 

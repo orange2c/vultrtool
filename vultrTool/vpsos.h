@@ -35,9 +35,11 @@ class VPSOS
 public:
     ~VPSOS();
     VOsFamilly *at( int num );
-    void analyze(QJsonArray *all_os_json); //传入包含所有os的json数组
+    void update();
 
 protected:
+    void analyze(QJsonArray *all_os_json); //传入包含所有os的json数组
+
 #define  OS_LIST_SIZE  8
     VOsFamilly *OSlist[OS_LIST_SIZE] = {
         //目前可用os类型

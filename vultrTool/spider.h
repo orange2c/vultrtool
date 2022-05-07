@@ -18,10 +18,10 @@ class SPIDER : public QObject
     Q_OBJECT
 
 public:
-    SPIDER(); //不传入key，可使用各种匹配函数等
-    SPIDER( QByteArray *KEY ); //传入key，才能使用发出get请求的功能
+    SPIDER(); //不传入key,使用自带的
+    SPIDER( QByteArray *KEY ); //传入key，存储进本类的static变量中
     ~SPIDER( );
-    QNetworkAccessManager *NetManager;
+    QNetworkAccessManager *NetManager= new QNetworkAccessManager();
 
     void get(QString path);
     QJsonValue path( QStringList *list );  //从上一次通信所接收的json中，根据list的规则匹配,适用于寻找被多层嵌套的属性
@@ -29,8 +29,9 @@ public:
     void take( QJsonArray *text, QString type, QJsonValue value, QJsonArray *ReturnValue );   //从text中，将type为value的所有项目，剪切组成新的数组，保存起来
 //    void take( QJsonArray *text, QString type, QJsonArray value, QJsonArray *ReturnValue );   //适用于type是个json数组，匹配
     QJsonArray *match( QJsonArray *text, QString type, QJsonValue value );   //从text中，寻找type为value的所有项目
+
 protected:
-    QByteArray *API_KEY ;
+    static QByteArray *API_KEY ;
     QJsonObject *replyJson = NULL;  //指向用于存放get返回的json数据的内存
     bool is_wait_reply = 0;
 
