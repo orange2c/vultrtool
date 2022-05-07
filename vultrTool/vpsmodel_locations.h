@@ -45,11 +45,21 @@ public:
     int size();
 
 protected:
-    AirFamilly *transfer_locations[Eother+1]; //保存transfer的查找结果
+
     AirFamilly *locations[Eother+1]; //指向transfer_locations的非空项目
     int size_locations; //记录上面指针数组的非空数量
     void addtolocations( QString aircode );  //传入一个机场代码，识别并添加到locations
     AirFamilly *all_air = new AirFamilly("all");
+
+    AirFamilly *transfer_locations[Eother+1]=
+        { //保存transfer的查找结果
+            new AirFamilly("美国"),
+            new AirFamilly("法国"),
+            new AirFamilly("英国"),
+            new AirFamilly("日本"),
+            new AirFamilly("荷兰"),
+            new AirFamilly("无翻译")
+        };
 };
 
 

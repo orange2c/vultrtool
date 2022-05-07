@@ -36,18 +36,16 @@ AirFamilly::AirFamilly(QString name)
 }
 VPSMODEL_LOCATIONS::VPSMODEL_LOCATIONS()
 {
-    //创建一个familly，存储所有已知机场及其代号
-    //申请EcountryMAX个familly,待后续transfer时存储结果
     all_air->append("ewr", "纽约", EAmerican);
     all_air->append("ord", "芝加哥", EAmerican);
     all_air->append("ams", "阿姆斯特丹", EHolland);
 
-    transfer_locations[EAmerican] = new AirFamilly("American");
-    transfer_locations[EFrance] = new AirFamilly("EFrance");
-    transfer_locations[EEngland] = new AirFamilly("EEngland");
-    transfer_locations[EJapan] = new AirFamilly("EJapan");
-    transfer_locations[EHolland] = new AirFamilly("EHolland");
-    transfer_locations[Eother] = new AirFamilly("other");
+//    transfer_locations[EAmerican] = new AirFamilly("American");
+//    transfer_locations[EFrance] = new AirFamilly("EFrance");
+//    transfer_locations[EEngland] = new AirFamilly("EEngland");
+//    transfer_locations[EJapan] = new AirFamilly("EJapan");
+//    transfer_locations[EHolland] = new AirFamilly("EHolland");
+//    transfer_locations[Eother] = new AirFamilly("无翻译");
 
 }
 VPSMODEL_LOCATIONS::~VPSMODEL_LOCATIONS()

@@ -2,11 +2,11 @@
 #include "vpsmodel.h"
 
 
-VPSMODEL::VPSMODEL( QJsonObject *vps_json )
+VPSMODE_DATA::VPSMODE_DATA( QJsonObject *vps_json )
 {
 //    qDebug("开始vpsmodel");
-    locationsCNp = new  QStringList();
-    locationsENp = new  QStringList();
+//    locationsCNp = new  QStringList();
+    location_strlist = new  QStringList();
     introduceP = new  QString();
 
     //开始拆解json中的机型信息
@@ -27,39 +27,40 @@ VPSMODEL::VPSMODEL( QJsonObject *vps_json )
 
     QJsonArray location_json = SPIDER::path( vps_json, "locations" ).toArray();
     for( int i = 0; i<location_json.size(); i++ )
-        locationsENp->append( location_json.at(i).toString()  );
+        location_strlist->append( location_json.at(i).toString()  );
 
-    local->transfer(locationsENp);
+    local->transfer(location_strlist);
 }
 
-VPSMODEL::~VPSMODEL()
+VPSMODE_DATA::~VPSMODE_DATA()
 {
     delete introduceP;
-    delete locationsCNp;
-    delete locationsENp;
+    delete location_strlist;
     delete local;
 }
 
-QString VPSMODEL::introduce()
+QString VPSMODE_DATA::introduce()
 {
     return QString(*introduceP);
 }
 
-//QStringList VPSMODEL::locationsEN()
-//{
-//    return QStringList(*locationsENp);
-//}
-QString VPSMODEL::model_id()
+
+QString VPSMODE_DATA::model_id()
 {
     return QString(id);
 }
 
 /******************VModelFamilly*********************/
-
-
+VModelFamilly::VModelFamilly()
+{}
+VModelFamilly::VModelFamilly( QString name, QString type_name  )
+{
+    setname(name);
+    model_type = type_name;
+}
 void VModelFamilly::append( QJsonObject *vps_json )
 {
-    VPSMODEL *newmodel = new VPSMODEL( vps_json );
+    VPSMODE_DATA *newmodel = new VPSMODE_DATA( vps_json );
     LinkedList::append( newmodel );
 }
 

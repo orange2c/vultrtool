@@ -91,7 +91,6 @@ void VULTR::update_model()
     {
         QJsonObject obj = vc2_json->at(i).toObject();
         vc2->append( &obj );
-
     }
     qDebug( "vc2共%d种可用机型",vc2->size() );
 

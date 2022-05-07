@@ -20,7 +20,7 @@ public:
 private:
     Ui::PageBuy *ui;
     VULTR *vr;  //定义一个操作vultr的类指针
-    VPSMODEL *now_model;
+    VPSMODE_DATA *now_model;
     OSDATA *now_os;
 
     void update_model_list();
