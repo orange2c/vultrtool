@@ -55,10 +55,20 @@ void PageBuy::update_model_locations()
     ui->Box_locations1->clear();
     ui->Box_locations2->clear();
 //    ui->Box_locations->addItem( now_model->introduce() );
-    for( int i = 0; i< now_model->local->size() ; i++ )
+    if( now_model->local->size() >1 )
     {
-        ui->Box_locations1->addItem( now_model->local->at(i)->name() );
+        ui->Box_locations1->setEnabled(true);
+        for( int i = 0; i< now_model->local->size()-1 ; i++ )
+        {
+            ui->Box_locations1->addItem( now_model->local->at(i)->name() );
+        }
     }
+    else
+        ui->Box_locations1->setEnabled(false);
+    int size_other = now_model->local->at( now_model->local->size()-1 )->size();
+
+    if( size_other>0 )
+        ui->Box_locations1->addItem( now_model->local->at(now_model->local->size()-1)->name() );
 }
 
 void PageBuy::on_vpslist_tabBarClicked(int index)
@@ -79,8 +89,8 @@ void PageBuy::on_list_model_itemClicked(QListWidgetItem *item)
 void PageBuy::on_pushButton_clicked()
 {
     qDebug("购买机型id：%s",qPrintable( now_model->model_id()) );
-    int location_num = ui->Box_locations1->currentIndex();
-    qDebug("购买位置：%s", qPrintable( now_model->locationsEN().at(location_num)) );
+//    int location_num = ui->Box_locations1->currentIndex();
+//    qDebug("购买位置：%s", qPrintable( now_model->locationsEN().at(location_num)) );
 //    qDebug("部署系统：%s",qPrintable(  ));
 }
 
@@ -113,6 +123,10 @@ void PageBuy::on_Box_locations1_currentIndexChanged(int index)
     {
         ui->Box_locations2->addItem( now_model->local->at(index)->at(j)->name );
     }
+    if( now_model->local->at(index)->size()<=1 ) //如果不到一个项目，则设为不可选
+        ui->Box_locations2->setEnabled(false);
+    else
+        ui->Box_locations2->setEnabled(true);
     log(  now_model->introduce() );
 }
 

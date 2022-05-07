@@ -16,7 +16,6 @@ public:
     ~VPSMODEL();
     QString model_id();
     QString introduce();
-    QStringList locationsCN();
     QStringList locationsEN();
 
 
