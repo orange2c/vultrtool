@@ -1,14 +1,14 @@
 #include "vpsmodel_locations.h"
-int airdata::count = 0;
+int LOCATION_DATA::count = 0;
 
-airdata::airdata( QString code, QString translate, int thecountry)
+LOCATION_DATA::LOCATION_DATA( QString code, QString translate, int thecountry)
 {
     airport = code;
     name =translate;
     country = thecountry;
     count++;
 }
-airdata::airdata(QString code)
+LOCATION_DATA::LOCATION_DATA(QString code)
 {
     airport = code;
     name = code;
@@ -18,16 +18,16 @@ airdata::airdata(QString code)
 
 void AirFamilly::append(QString code, QString translate, int thecountry)
 {
-    airdata *newdata = new airdata( code, translate, thecountry );
+    LOCATION_DATA *newdata = new LOCATION_DATA( code, translate, thecountry );
     LinkedList::append(newdata);
 }
-void AirFamilly::append(airdata *data)
+void AirFamilly::append(LOCATION_DATA *data)
 {
     LinkedList::append(data);
 }
 void AirFamilly::append(QString code)
 {
-    airdata *newdata = new airdata(code);
+    LOCATION_DATA *newdata = new LOCATION_DATA(code);
     LinkedList::append(newdata);
 }
 AirFamilly::AirFamilly(QString name)

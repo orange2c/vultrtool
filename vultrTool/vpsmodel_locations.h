@@ -4,29 +4,27 @@
 #include "linkedlist.h"
 
 
-
-
 //机场信息类
-class airdata
+class LOCATION_DATA
 {
 
 public:
     QString airport ;  //机场3字代码
     QString name ;  //对应机场的名称
     int country;
-    airdata( QString code, QString translate, int thecountry);
-    airdata( QString code );
+    LOCATION_DATA( QString code, QString translate, int thecountry);
+    LOCATION_DATA( QString code );
     static int count; //存储到底被实例化多少对象
-    ~airdata(){ count--; }
+    ~LOCATION_DATA(){ count--; }
 };
 
 //存储所有机场信息
-class AirFamilly:public LinkedList<airdata>
+class AirFamilly:public LinkedList<LOCATION_DATA>
 {
 public:
     AirFamilly(QString name);
     void append(QString code, QString translate, int thecountry);
-    void append( airdata *data );
+    void append( LOCATION_DATA *data );
     void append( QString code );
 };
 

@@ -61,13 +61,6 @@ void PageBuy::showEvent(QShowEvent *event)
 }
 
 
-
-
-
-
-
-
-
 void PageBuy::on_Box_OS1_currentIndexChanged(int index)
 {
     if( ui->Box_OS2->count()>0 )
@@ -183,5 +176,15 @@ void PageBuy::on_Box_locations1_currentIndexChanged(int index)
     else
         ui->Box_locations2->setEnabled(true);
     log(  select_model->introduce() );
+}
+
+
+void PageBuy::on_Box_locations2_currentIndexChanged(int index)
+{
+    if( index <0 ) return; //前面在更新本列表时会先clear，会导致传入一次-1
+    qDebug("选择地区小编号%d", index);
+    int num_box1 = ui->Box_locations1->currentIndex();
+    select_location = select_model->local->at(num_box1)->at(index);
+    qDebug("选择地区为%s", qPrintable( select_location->airport));
 }
 

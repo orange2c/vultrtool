@@ -29,6 +29,7 @@ private:
 
     VPSMODE_DATA *select_model;
     OSDATA *select_os;
+    LOCATION_DATA *select_location;
 
     void log( QString log_text ); //将传入字符串在log窗口显示出来
 
@@ -43,6 +44,7 @@ private slots:
     void on_TAB_model2_currentChanged(int index);
     void on_list_model_currentRowChanged(int currentRow);
     void on_Box_locations1_currentIndexChanged(int index);
+    void on_Box_locations2_currentIndexChanged(int index);
 };
 
 #endif // PAGEBUY_H
