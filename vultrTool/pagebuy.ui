@@ -10,6 +10,17 @@
     <height>647</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+    <horstretch>17</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Buy</string>
   </property>
@@ -20,94 +31,13 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QTabWidget" name="vpslist">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>110</y>
-      <width>541</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="tabShape">
-     <enum>QTabWidget::Rounded</enum>
-    </property>
-    <property name="currentIndex">
-     <number>5</number>
-    </property>
-    <property name="elideMode">
-     <enum>Qt::ElideLeft</enum>
-    </property>
-    <property name="tabsClosable">
-     <bool>false</bool>
-    </property>
-    <property name="movable">
-     <bool>false</bool>
-    </property>
-    <property name="tabBarAutoHide">
-     <bool>false</bool>
-    </property>
-    <widget class="QWidget" name="tab1">
-     <attribute name="title">
-      <string>云电脑</string>
-     </attribute>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>141</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>普通云服务器</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>专用机</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_9">
-     <attribute name="title">
-      <string>高频计算</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_8">
-     <attribute name="title">
-      <string>高性能-amd</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_7">
-     <attribute name="title">
-      <string>高性能-intel</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_6">
-     <attribute name="title">
-      <string>cpu</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_5">
-     <attribute name="title">
-      <string>内存</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_4">
-     <attribute name="title">
-      <string>存储</string>
-     </attribute>
-    </widget>
-   </widget>
    <widget class="QPlainTextEdit" name="logEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>581</width>
-      <height>81</height>
+      <height>31</height>
      </rect>
     </property>
    </widget>
@@ -207,6 +137,11 @@
     <property name="currentRow">
      <number>-1</number>
     </property>
+    <item>
+     <property name="text">
+      <string>机型信息列表</string>
+     </property>
+    </item>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
@@ -262,7 +197,7 @@
        </property>
        <item>
         <property name="text">
-         <string>纽约</string>
+         <string>地区</string>
         </property>
        </item>
       </widget>
@@ -316,6 +251,153 @@
      </item>
     </layout>
    </widget>
+   <widget class="QTabWidget" name="TAB_model1">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>491</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ActionsContextMenu</enum>
+    </property>
+    <property name="toolTipDuration">
+     <number>0</number>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::North</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="elideMode">
+     <enum>Qt::ElideLeft</enum>
+    </property>
+    <widget class="QWidget" name="tab1">
+     <attribute name="title">
+      <string>通用型</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab2">
+     <attribute name="title">
+      <string>优化型</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab3">
+     <attribute name="title">
+      <string>独立机器</string>
+     </attribute>
+    </widget>
+   </widget>
+   <widget class="QTabWidget" name="TAB_model2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>491</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
+    <property name="currentIndex">
+     <number>3</number>
+    </property>
+    <property name="elideMode">
+     <enum>Qt::ElideLeft</enum>
+    </property>
+    <property name="tabsClosable">
+     <bool>false</bool>
+    </property>
+    <property name="movable">
+     <bool>false</bool>
+    </property>
+    <property name="tabBarAutoHide">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="tab_model_class1">
+     <attribute name="title">
+      <string>云电脑</string>
+     </attribute>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>普通云服务器</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_model_class2">
+     <attribute name="title">
+      <string>专用机</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_model_class3">
+     <attribute name="title">
+      <string>高频计算</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_model_class4">
+     <attribute name="title">
+      <string>高性能-amd</string>
+     </attribute>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>150</y>
+      <width>160</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
+   </widget>
+   <zorder>TAB_model1</zorder>
+   <zorder>TAB_model2</zorder>
+   <zorder>logEdit</zorder>
+   <zorder>label</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>list0</zorder>
+   <zorder>list_model</zorder>
+   <zorder>gridLayoutWidget</zorder>
+   <zorder>horizontalLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -323,7 +405,7 @@
      <x>0</x>
      <y>0</y>
      <width>602</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

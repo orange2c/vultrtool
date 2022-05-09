@@ -49,17 +49,19 @@ class VPSMODEL
 {
 public:
     void update(); //更新可用机型
-    VModelFamilly *at(int num);
+    VModelFamilly *at(int num); //从AllModelFamilly中返回
+
+
 protected:
 
-#define  MODEL_LIST_SIZE  9
+#define  MODEL_LIST_SIZE  8
     VModelFamilly *AllModelFamilly[MODEL_LIST_SIZE] = {
         //目前可用类型
         new VModelFamilly("云电脑", "vc2"),
-        new VModelFamilly("专用云", "vdc"),
+//        new VModelFamilly("专用云", "vdc"),
         new VModelFamilly("高频计算", "vhf"),
-        new VModelFamilly("高性能-amd", "vhp", "amd"),
-        new VModelFamilly("高性能-intel", "vhp", "intel"),
+        new VModelFamilly("高性能amd", "vhp", "amd"),
+        new VModelFamilly("高性能intel", "vhp", "intel"),
         new VModelFamilly("通用优化", "voc", "voc-g"),
         new VModelFamilly("cpu优化", "voc", "voc-c"),
         new VModelFamilly("内存优化", "voc", "voc-m"),

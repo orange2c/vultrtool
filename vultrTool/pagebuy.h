@@ -9,6 +9,12 @@ namespace Ui {
 class PageBuy;
 }
 
+//创建一个类来存储当前的页面内所有项目的选择
+class MODEL_NOW
+{
+public:
+};
+
 class PageBuy : public QMainWindow
 {
     Q_OBJECT
@@ -20,13 +26,10 @@ public:
 private:
     Ui::PageBuy *ui;
     VULTR *vr;  //定义一个操作vultr的类指针
-    VPSMODE_DATA *now_model;
-    OSDATA *now_os;
 
-    void buymessage_change(); //当选择机型，os，locations等改变时，调用该函数来读取并更新数据
+    VPSMODE_DATA *select_model;
+    OSDATA *select_os;
 
-//    void update_model_list();
-    void update_model_locations();
     void log( QString log_text ); //将传入字符串在log窗口显示出来
 
 public slots:
@@ -34,13 +37,12 @@ public slots:
 private slots:
     void showEvent(QShowEvent *event);
 
-    void on_vpslist_tabBarClicked(int index);
-    void on_pushButton_clicked();
     void on_Box_OS1_currentIndexChanged(int index);
     void on_Box_OS2_currentIndexChanged(int index);
-    void on_Box_locations1_currentIndexChanged(int index);
-    void on_vpslist_currentChanged(int index);
+    void on_TAB_model1_currentChanged(int index);
+    void on_TAB_model2_currentChanged(int index);
     void on_list_model_currentRowChanged(int currentRow);
+    void on_Box_locations1_currentIndexChanged(int index);
 };
 
 #endif // PAGEBUY_H
