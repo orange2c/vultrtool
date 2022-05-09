@@ -156,9 +156,7 @@ void PageBuy::on_list_model_currentRowChanged(int currentRow)
 
     if( size_other>0 )
         ui->Box_locations1->addItem( select_model->local->at(select_model->local->size()-1)->name() );
-
 }
-
 
 void PageBuy::on_Box_locations1_currentIndexChanged(int index)
 {
