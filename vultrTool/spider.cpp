@@ -26,6 +26,7 @@ void SPIDER::reply_slot(QNetworkReply *reply)
 
     QByteArray  reply_data = reply->readAll();
     emit log( reply_data );
+//    qDebug("%s",reply_data );
     reply->deleteLater();
 
     if(err != QNetworkReply::NoError)

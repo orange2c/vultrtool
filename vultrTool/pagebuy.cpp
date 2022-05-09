@@ -13,11 +13,7 @@ PageBuy::PageBuy(QWidget *parent) :
 
     vr->update_model(); //获取所有可用机型
     ui->list0->setMovement( QListView::Static );
-    ui->list0->item(0)->setText( "cpu\tRAM\t硬盘\t分钟价格\t满月价格");
 
-
-//    int numModelFamilly = ui->list_model->currentRow();
-//    PageBuy::on_vpslist_currentChanged(numModelFamilly); //触发一次机型种类切换
 
     ui->Box_OS1->clear();
     for( int i=0; i<(OS_LIST_SIZE); i++ )
@@ -88,6 +84,7 @@ void PageBuy::on_TAB_model1_currentChanged(int index)
     switch (index) {
     case 0:
     case 1:
+         ui->list0->item(0)->setText( "cpu\tRAM\t硬盘\t分钟价格\t满月价格");
         ui->TAB_model2->setHidden( false );
 //        ui->list_model->setHidden( false );
 
@@ -96,16 +93,18 @@ void PageBuy::on_TAB_model1_currentChanged(int index)
         ui->TAB_model2->setTabText(2, vr->model->at(index_p+2)->name());
         ui->TAB_model2->setTabText(3, vr->model->at(index_p+3)->name());
 
-        ui->TAB_model2->setCurrentIndex(0); //手动触发机型小类选择，使机型列表更新信息
-        emit ui->TAB_model2->currentChanged( ui->TAB_model2->currentIndex() );
+
         break;
 
     case 2:
+         ui->list0->item(0)->setText( "cpu\t核心线程\tRAM\t硬盘\t分钟价格\t满月价格");
         ui->TAB_model2->setHidden(true);
 //        ui->list_model->setHidden(true);
-        return;
+//        return;
 
     }
+    ui->TAB_model2->setCurrentIndex(0); //手动触发机型小类选择，使机型列表更新信息
+    emit ui->TAB_model2->currentChanged( ui->TAB_model2->currentIndex() );
 
 
 }

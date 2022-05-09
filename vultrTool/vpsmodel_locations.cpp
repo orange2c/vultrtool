@@ -77,6 +77,8 @@ VPSMODEL_LOCATIONS::VPSMODEL_LOCATIONS()
 
     all_air->append("mel", "墨尔本", EAustralia);
     all_air->append("sea", "西雅图", EAmerican);
+    all_air->append("hnl", "火奴鲁鲁", EAmerican);
+    all_air->append("bom", "孟买", EIndia);
 
 
 }
@@ -129,23 +131,8 @@ void VPSMODEL_LOCATIONS::update(QStringList *source)
             size_locations++;
         }
     }
-    qDebug("american=%d", transfer_locations[EAmerican]->size() );
-    qDebug("可用地区为%d", size_locations );
+//    qDebug("american=%d", transfer_locations[EAmerican]->size() );
+//    qDebug("可用地区为%d", size_locations );
 
 }
-
-//QStringList locations_cn ={ "美国-纽约", "美国-芝加哥", "美国-德克萨斯", "美国-洛杉矶", "美国-亚特兰大",
-//                                "荷兰-阿姆斯特丹", "英国-伦敦", "德国-法兰克福", "美国-加利福尼亚", "澳大利亚-悉尼",
-//                               "加拿大-多伦多", "法国-巴黎", "日本-东京", "波兰-华沙", "西班牙-马德里",
-//                               "韩国-仁川", "美国-迈阿密", "新加坡", "瑞典-斯德哥尔摩", "墨西哥",
-//                               "澳大利亚-墨尔本", "美国-西雅图"
-//                             };
-
-//QStringList locations_en = { "ewr","ord","dfw","lax","atl",
-//                                "ams","lhr","fra","sjc","syd",
-//                                "yto","cdg","nrt","waw","mad",
-//                                "icn","mia","sgp","sto","mex",
-//                                "mel", "sea"
-//                               };
-
 

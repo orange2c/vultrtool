@@ -45,7 +45,7 @@ public:
     VModelFamilly( QString name, QString type_name, QString part="" );
     void takeSame(QJsonArray *vps_list); //传入json数组，将所有与model_type相同的都取走
     void appendmetal( QJsonArray *vps_list );
-    void append( QJsonObject *vps_json );
+    void append( QJsonObject *vps_json, bool ismetal=false );
 protected:
     QString model_type; //takesame时会比对type项是否为此值
     QString type_part=""; //如果此值非空，则takesame时也会匹配此值是否在id项目中
@@ -74,7 +74,7 @@ protected:
         new VModelFamilly("内存优化", "voc", "voc-m"),
         new VModelFamilly("存储优化", "voc", "voc-s"),
 
-        new VModelFamilly("存储优化", "voc", "voc-m"),
+        new VModelFamilly("metal", "", ""),
 
     };
 };

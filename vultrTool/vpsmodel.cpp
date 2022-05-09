@@ -12,6 +12,7 @@ VPSMODE_DATA::VPSMODE_DATA( QJsonObject *vps_json, bool is_metal )
 
     //开始拆解json中的机型信息
     id .append( SPIDER::path( vps_json, "id" ).toString()) ;
+    type .append( SPIDER::path( vps_json, "type" ).toString()) ;
     ram =  SPIDER::path( vps_json, "ram" ).toInt() ;
     disk = SPIDER::path( vps_json, "disk" ).toInt() ;
     disk_count = SPIDER::path( vps_json, "disk_count" ).toInt() ;
@@ -21,9 +22,16 @@ VPSMODE_DATA::VPSMODE_DATA( QJsonObject *vps_json, bool is_metal )
 
     if( is_metal_model )
     {
-        cpu_model .append( SPIDER::path( vps_json, "cpu_model" ).toString()) ;
+        cpu_model.append( SPIDER::path( vps_json, "cpu_model" ).toString()) ;
         cpu_count =  SPIDER::path( vps_json, "cpu_count" ).toInt() ;
         cpu_threads =  SPIDER::path( vps_json, "cpu_threads" ).toInt() ;
+
+        introduceP->append(cpu_model +"\t");
+        introduceP->append(QString::number(cpu_count) +"核" +QString::number(cpu_threads) +"线程\t" );
+        introduceP->append(QString::number(ram/1024)+"g\t");
+        introduceP->append(QString::number(disk_count) +"*" + QString::number(disk)+"G\t");
+        introduceP->append(QString::number(minuter_cost, 'f', 4 )+ "$\t");
+        introduceP->append(QString::number(monthly_cost)+ "$");
     }
     else
     {
@@ -67,9 +75,15 @@ VModelFamilly::VModelFamilly( QString name, QString type_name, QString part  )
     model_type = type_name;
     type_part = part;
 }
-void VModelFamilly::append( QJsonObject *vps_json )
+
+
+void VModelFamilly::append( QJsonObject *vps_json, bool ismetal )
 {
-    VPSMODE_DATA *newmodel = new VPSMODE_DATA( vps_json );
+    VPSMODE_DATA *newmodel;
+    if(ismetal)
+        newmodel = new VPSMODE_DATA( vps_json, true );
+    else
+        newmodel = new VPSMODE_DATA( vps_json );
     LinkedList::append( newmodel );
 }
 void VModelFamilly::takeSame(QJsonArray *vps_list)
@@ -92,22 +106,19 @@ void VModelFamilly::takeSame(QJsonArray *vps_list)
 }
 void VModelFamilly::appendmetal(QJsonArray *vps_list)
 {
-    未写完
     SPIDER spider;
-    QJsonArray thisModel;
-    spider.take( vps_list, "type", QJsonValue(this->model_type), &thisModel, "id", type_part ); //将所有model_type机型的信息json，都提取出来
-
+    QJsonArray thisModel (*vps_list);
     QJsonArray non_delete;
+
     spider.take(  &thisModel, "locations", QJsonValue("sao"), &non_delete ); //删除巴西特供版机型（和其他地区机型相同，但贵%50）
     spider.take(  &thisModel, "locations", QJsonValue(), &non_delete ); //删除可部署地区为空的（不可用机型）
     int liset_size = thisModel.size();
     for( int i = 0; i<liset_size; i++ )
     {
         QJsonObject obj = thisModel.at(i).toObject();
-        append( &obj );
+        append( &obj, true );
     }
-    qDebug( "%s共%d种可用机型",qPrintable(model_type),  size() );
-
+    qDebug( "metal共%d种可用机型",  size() );
 }
 VModelFamilly* VPSMODEL::at(int num)
 {
@@ -132,8 +143,14 @@ void VPSMODEL::update()
     QJsonArray *vps_list = new QJsonArray(spider.path( &match_str ).toArray());
     for( int i=0; i<MODEL_LIST_SIZE-1; i++ )
     {
-        qDebug("moedl-i=%d", i);
+//        qDebug("moedl-i=%d", i);
         AllModelFamilly[i]->takeSame(vps_list);
     }
+    spider.get( "plans-metal" );
+
+    match_str << "plans_metal";
+    QJsonArray *metal_list = new QJsonArray(spider.path( &match_str ).toArray());
+
+    AllModelFamilly[MODEL_LIST_SIZE-1]->appendmetal(metal_list);
 
 }

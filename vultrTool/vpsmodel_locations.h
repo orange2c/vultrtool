@@ -34,18 +34,19 @@ public:
 #define EJapan     3
 #define EHolland     4
 #define EGermany    5
-#define EAustralia  6
 
+#define EAustralia  6
 #define ECanada     7
 #define EPoland     8
 #define ESpain      9
 #define EKorea      10
+
 #define ESingapore  11
 #define ESweden     12
 #define EMexico     13
+#define EIndia      14
 
-
-#define Eother     14
+#define Eother     15
 
 
 class VPSMODEL_LOCATIONS
@@ -80,6 +81,7 @@ protected:
         new AirFamilly("新加坡"),
         new AirFamilly("瑞典"),
         new AirFamilly("墨西哥"),
+        new AirFamilly("印度"),
         new AirFamilly("无翻译")
         };
 };
