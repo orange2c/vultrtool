@@ -8,6 +8,8 @@ PageBuy::PageBuy(QWidget *parent) :
     ui(new Ui::PageBuy)
 {
     ui->setupUi(this);
+
+
     vr = new VULTR();
     QObject::connect( vr, SIGNAL(log(QString)), this, SLOT(log_slots(QString)) );
 

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "vultr.h"
 #include <QListWidgetItem>
+#include "fileconf.h"
 
 namespace Ui {
 class PageBuy;
@@ -25,6 +26,7 @@ public:
 
 private:
     Ui::PageBuy *ui;
+    FileConf *config;
     VULTR *vr;  //定义一个操作vultr的类指针
 
     VPSMODE_DATA *select_model;
