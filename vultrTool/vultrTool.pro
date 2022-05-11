@@ -28,6 +28,7 @@ SOURCES += \
     pagebuy.cpp \
     pageinformation.cpp \
     pagelogin.cpp \
+    pagevpsinfo.cpp \
     spider.cpp \
     vpsmodel.cpp \
     vpsmodel_locations.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     pagebuy.h \
     pageinformation.h \
     pagelogin.h \
+    pagevpsinfo.h \
     spider.h \
     vpsmodel.h \
     vpsmodel_locations.h \
@@ -48,7 +50,8 @@ HEADERS += \
 FORMS += \
     pagebuy.ui \
     pageinformation.ui \
-    pagelogin.ui
+    pagelogin.ui \
+    pagevpsinfo.ui
 
 DISTFILES += \
     readme.md
