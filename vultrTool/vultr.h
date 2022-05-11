@@ -17,8 +17,8 @@ public:
     ~VULTR();
 
     bool login(); //测试密钥是否正确
-    static void set_key( QByteArray *key ){ if(key!=NULL) delete API_KEY; API_KEY = new QByteArray(*key);}
-
+//    static void set_key( QByteArray *key ){ if(key!=NULL) delete API_KEY; API_KEY = new QByteArray(*key);}
+    void set_key( QString key_text );
     void update_message(); //更新个人信息
     void update_model();
 
@@ -31,8 +31,11 @@ public:
     VPSMODEL *model = new VPSMODEL;
 
 protected:
-    static QByteArray *API_KEY ;
+    static QByteArray API_KEY ;
     SPIDER *spider;
+
+
+
 
 public Q_SLOTS:
     void log_Transfer( QString log_text );

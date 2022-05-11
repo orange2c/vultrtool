@@ -63,7 +63,7 @@
     <string/>
    </property>
    <property name="placeholderText">
-    <string>VULTR_API_KEY</string>
+    <string>请输入Vultr的API KEY</string>
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="log_lab">

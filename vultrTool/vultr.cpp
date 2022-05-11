@@ -9,18 +9,22 @@
 QString VULTR::email = "0";
 QString VULTR::username = "NULL";
 double VULTR::Balance = 0.0;
-QByteArray* VULTR::API_KEY = NULL;
+QByteArray VULTR::API_KEY = NULL;
 
 VULTR::VULTR()
 {
-    spider = new SPIDER( this->API_KEY );
+    spider = new SPIDER( &API_KEY );
     QObject::connect( spider, SIGNAL(log(QString)), this, SLOT(log_Transfer(QString)) );
-
 }
 VULTR::~VULTR()
 {
     delete spider;
     delete os;
+}
+void VULTR::set_key(QString key_text)
+{
+    if( API_KEY.size()>0 ) API_KEY.clear();
+    API_KEY.append( key_text);
 }
 
 void VULTR::log_Transfer( QString log_text )
