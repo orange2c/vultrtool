@@ -3,52 +3,77 @@
 FileConf::FileConf()
 {
     qDebug("%s", qPrintable( QCoreApplication::applicationDirPath()));
+    load();
+}
 
+int FileConf::load()
+{
     QFile file(FILENAME);
-    flag_exist = file.exists();
-
-    if( flag_exist )
+    if( jtext != NULL )
     {
+        delete jtext;
+        jtext = NULL;
+    }
+
+    if( file.exists() )
+    {
+
         file.open(QIODevice::ReadOnly);
         QString file_text( file.readAll() );
 
         QJsonParseError jsonError;
         QJsonDocument doc = QJsonDocument::fromJson(file_text.toUtf8(), &jsonError);
+
         if (jsonError.error == QJsonParseError::NoError && !doc.isNull()) {
-            qDebug("开始解析配置文件");
-            QJsonObject obj = doc.object();
-            SaveApiKey.append(obj.value(JNAME_APIKEY).toString());
-
+            jtext = new QJsonObject( doc.object() );
         }
+
+        return 0;
     }
+    else
+    {
+        jtext = new QJsonObject();
+    }
+    return -1;
+}
+QString FileConf::read(QString key)
+{
+    if( load() >= 0 ) //载入配置文件
+        if( jtext != NULL )
+            return jtext->value( key ).toString();
+    return "";
 
+}
 
-}
-bool FileConf::is_exist()
+void FileConf::write(QString key, QString value)
 {
-    return flag_exist;
+
+    if( jtext != NULL )
+        jtext->insert(key,value);
 }
-void FileConf::write_apikey(QString apikey)
-{
-    SaveApiKey.clear();
-    SaveApiKey.append(apikey);
-}
-QString FileConf::read_apikey()
-{
-    return SaveApiKey;
-}
+
 
 void FileConf::save()
 {
-    QJsonObject text;
-    text.insert(JNAME_APIKEY,SaveApiKey);
-    text.insert("name","VultrTool config");
-
-    QJsonDocument doc(text);
-
+    if( jtext == NULL )
+        return;
+    QJsonDocument doc( *jtext );
     QFile file(FILENAME);
     file.open(QIODevice::WriteOnly);
     file.write(doc.toJson());
     file.close();
+}
 
+QString FileConf::read_apikey()
+{
+    if( load()<0 ) //载入配置文件
+        return "";
+    qDebug("检查apikey");
+    return read(JNAME_APIKEY);
+}
+void FileConf::write_apikey(QString apikey)
+{
+    load();
+    write( JNAME_APIKEY, apikey);
+    save();
 }

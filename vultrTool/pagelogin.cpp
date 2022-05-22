@@ -23,11 +23,10 @@ PageLogin::PageLogin(QWidget *parent) :
 
     //开始尝试读取配置文件中的apikey
     FileConf config;
-    if(  config.is_exist() )
-    {
-        ui->key_edit->setText( config.read_apikey() );
-        qDebug("read api key%s", qPrintable( config.read_apikey() )  );
-    }
+
+    ui->key_edit->setText( config.read_apikey() );
+    qDebug("read api key%s", qPrintable( config.read_apikey() ) );
+
 
     vr = new VULTR();
     QObject::connect( vr, SIGNAL(log(QString)), this, SLOT(log_slots(QString)) );
@@ -63,6 +62,9 @@ void PageLogin::on_login_button_clicked()
     QString key_value =  this->ui->key_edit->text();
     vr->set_key(key_value);
     log( key_value);
+
+    FileConf config;
+    config.write_apikey(key_value);
 
     if(vr->login())
     {
