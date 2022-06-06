@@ -2,6 +2,7 @@
 #define PAGEVPSINFO_H
 
 #include <QMainWindow>
+#include "vultr.h"
 
 namespace Ui {
 class PageVPSinfo;

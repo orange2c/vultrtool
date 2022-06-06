@@ -31,6 +31,7 @@ SOURCES += \
     pagelogin.cpp \
     pagevpsinfo.cpp \
     spider.cpp \
+    vpsinstances.cpp \
     vpsmodel.cpp \
     vpsmodel_locations.cpp \
     vpsos.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     pagelogin.h \
     pagevpsinfo.h \
     spider.h \
+    vpsinstances.h \
     vpsmodel.h \
     vpsmodel_locations.h \
     vpsos.h \

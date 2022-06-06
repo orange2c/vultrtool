@@ -1,16 +1,16 @@
 #include "spider.h"
-QByteArray* SPIDER::API_KEY = NULL;
+QByteArray* Spider::API_KEY = NULL;
 
-SPIDER::SPIDER(  )
+Spider::Spider(  )
 {
 }
 
-SPIDER::SPIDER( QByteArray *KEY )
+Spider::Spider( QByteArray *KEY )
 {
     API_KEY = KEY;
 }
 
-SPIDER::~SPIDER()
+Spider::~Spider()
 {
     delete NetManager;
     if( replyJson != NULL)
@@ -18,7 +18,7 @@ SPIDER::~SPIDER()
 }
 
 
-void SPIDER::reply_slot(QNetworkReply *reply)
+void Spider::reply_slot(QNetworkReply *reply)
 {
     is_wait_reply = 0;
 
@@ -55,7 +55,7 @@ void SPIDER::reply_slot(QNetworkReply *reply)
         }
 
 }
-QJsonValue SPIDER::_recursive_find( QJsonObject *obj, QStringList *match_list )
+QJsonValue Spider::_recursive_find( QJsonObject *obj, QStringList *match_list )
 {
     emit log("matching:"+match_list->at(0));
     if (obj->contains(match_list->at(0)))
@@ -79,7 +79,7 @@ QJsonValue SPIDER::_recursive_find( QJsonObject *obj, QStringList *match_list )
       }
     return "Not Find";
 }
-void SPIDER::waiting_reply()
+void Spider::waiting_reply()
 {
     if( is_wait_reply == 1 )
     {
@@ -88,7 +88,7 @@ void SPIDER::waiting_reply()
         eventLoop.exec();  //等待直到网络通讯完成
     }
 }
-QJsonValue SPIDER::path( QStringList *list )
+QJsonValue Spider::path( QStringList *list )
 {
     waiting_reply();
     if( replyJson == NULL )
@@ -97,7 +97,7 @@ QJsonValue SPIDER::path( QStringList *list )
     }
     return  _recursive_find( replyJson, list );
 }
-QJsonValue SPIDER::path( QJsonObject *obj,  QString type )
+QJsonValue Spider::path( QJsonObject *obj,  QString type )
 {
     if (obj->contains(type))
     {
@@ -108,7 +108,7 @@ QJsonValue SPIDER::path( QJsonObject *obj,  QString type )
         return "Not Find";
     }
 }
-void SPIDER::take(QJsonArray *text, QString type, QJsonValue value, QJsonArray *ReturnValue, QString type2, QJsonValue part)
+void Spider::take(QJsonArray *text, QString type, QJsonValue value, QJsonArray *ReturnValue, QString type2, QJsonValue part)
 {
     if( value.isString() )
     {
@@ -192,7 +192,7 @@ void SPIDER::take(QJsonArray *text, QString type, QJsonValue value, QJsonArray *
 
 
 
-void SPIDER::get(QString path)
+void Spider::get(QString path)
 {
     QObject::connect(NetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(reply_slot(QNetworkReply*)) );
 

@@ -4,7 +4,7 @@
 
 
 //链表核心，实现所有功能，但存储的data是个void*指针,不能实现delete data，new等操作
-class LinkedList_core
+class LinkedList_Core
 {
 public:
     int size();
@@ -31,7 +31,7 @@ protected:
 
 //模板类，传入data的数据类型，调用上面core类实现大部分功能
 template <class data_type>
-class LinkedList: public LinkedList_core
+class LinkedList: public LinkedList_Core
 {
 public:
 

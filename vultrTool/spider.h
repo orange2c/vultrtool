@@ -13,14 +13,14 @@
 #include <QEventLoop>
 #include <QTimer>
 
-class SPIDER : public QObject
+class Spider : public QObject
 {
     Q_OBJECT
 
 public:
-    SPIDER(); //不传入key,使用自带的
-    SPIDER( QByteArray *KEY ); //传入key，存储进本类的static变量中
-    ~SPIDER( );
+    Spider(); //不传入key,使用自带的
+    Spider( QByteArray *KEY ); //传入key，存储进本类的static变量中
+    ~Spider( );
     QNetworkAccessManager *NetManager= new QNetworkAccessManager();
 
     void get(QString path);

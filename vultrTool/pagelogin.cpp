@@ -28,48 +28,46 @@ PageLogin::PageLogin(QWidget *parent) :
     qDebug("read api key%s", qPrintable( config.read_apikey() ) );
 
 
-    vr = new VULTR();
-    QObject::connect( vr, SIGNAL(log(QString)), this, SLOT(log_slots(QString)) );
+    vultr = new Vultr();
 
 }
 
 PageLogin::~PageLogin()
 {
     delete ui;
-    delete vr;
 }
 void PageLogin::login()
 {
     QString key_text = ui->key_edit->text();
-    vr->set_key( key_text );
+    vultr->set_key( key_text );
 
 }
 
-void PageLogin::log_slots(QString log_text)
-{
-    this->ui->log_lab->appendPlainText( log_text);
-    qDebug ("%s\n",qPrintable(log_text));
-}
-void PageLogin::log(QString log_text)
-{
-    this->ui->log_lab->appendPlainText( log_text);
-    qDebug ("%s",qPrintable(log_text));
-}
+//void PageLogin::log_slots(QString log_text)
+//{
+//    this->ui->log_lab->appendPlainText( log_text);
+//    qDebug ("%s\n",qPrintable(log_text));
+//}
+//void PageLogin::log(QString log_text)
+//{
+//    this->ui->log_lab->appendPlainText( log_text);
+//    qDebug ("%s",qPrintable(log_text));
+//}
 
 void PageLogin::on_login_button_clicked()
 {
 
     QString key_value =  this->ui->key_edit->text();
-    vr->set_key(key_value);
-    log( key_value);
+    vultr->set_key(key_value);
+//    log( key_value);
 
     FileConf config;
     config.write_apikey(key_value);
 
-    if(vr->login())
+    if(vultr->login())
     {
-        PageInformation *mWindow = new PageInformation();
-        log( " 切换新窗口 ");
+        PageInformation *mWindow = new PageInformation( vultr );
+//        log( " 切换新窗口 ");
         mWindow->show();
         this->close();
     }

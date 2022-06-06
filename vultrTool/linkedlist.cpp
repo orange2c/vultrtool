@@ -10,20 +10,20 @@
 //        first = pnext;
 //    }
 //}
-void LinkedList_core::setname(QString name)
+void LinkedList_Core::setname(QString name)
 {
     name_core.clear();
     name_core.append(name);
 }
-QString LinkedList_core::name()
+QString LinkedList_Core::name()
 {
     return name_core;
 }
-int LinkedList_core::size()
+int LinkedList_Core::size()
 {
     return list_size;
 }
-LinkedList_core::list* LinkedList_core::list_at(int num)
+LinkedList_Core::list* LinkedList_Core::list_at(int num)
 {
     if(num >= list_size)
         num = list_size-1;
@@ -37,7 +37,7 @@ LinkedList_core::list* LinkedList_core::list_at(int num)
     }
     return datalist;
 }
-void LinkedList_core::list_append( void *append_data )
+void LinkedList_Core::list_append( void *append_data )
 {
     list *newlist = new list();
     newlist->data = append_data;
@@ -54,7 +54,7 @@ void LinkedList_core::list_append( void *append_data )
     list_size++ ;
 }
 
-void LinkedList_core::list_deleteat(int num)
+void LinkedList_Core::list_deleteat(int num)
 {
     list *waite_delete = list_at(num);
 
@@ -63,7 +63,7 @@ void LinkedList_core::list_deleteat(int num)
     list_size --;
     delete waite_delete;
 }
-void LinkedList_core::list_clear()
+void LinkedList_Core::list_clear()
 {
     while( list_size >1 )
         list_deleteat( list_size-1 );

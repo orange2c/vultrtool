@@ -3,24 +3,26 @@
 #include "ui_pagebuy.h"
 #include <QListWidgetItem>
 
-PageBuy::PageBuy(QWidget *parent) :
+PageBuy::PageBuy( Vultr *vultr_p, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::PageBuy)
+    ui(new Ui::PageBuy),
+    vultr( vultr_p ),
+    os( vultr->get_os() ),
+    model( vultr->get_model() )
+
+
 {
     ui->setupUi(this);
 
-
-    vr = new VULTR();
-    QObject::connect( vr, SIGNAL(log(QString)), this, SLOT(log_slots(QString)) );
-
-    vr->update_model(); //获取所有可用机型
+//    vultr->update_model(); //获取所有可用机型
     ui->list0->setMovement( QListView::Static );
+
 
 
     ui->Box_OS1->clear();
     for( int i=0; i<(OS_LIST_SIZE); i++ )
     {
-        ui->Box_OS1->addItem( vr->os->at(i)->name() );
+        ui->Box_OS1->addItem( os->at(i)->name() );
     }
 
 
@@ -37,24 +39,21 @@ PageBuy::PageBuy(QWidget *parent) :
 PageBuy::~PageBuy()
 {
     delete ui;
-    delete vr;
 }
-void PageBuy::log_slots(QString log_text)
-{
-    this->ui->logEdit->appendPlainText( log_text);
-    qDebug ("%s\n",qPrintable(log_text));
-}
-void PageBuy::log(QString log_text)
-{
-    this->ui->logEdit->appendPlainText( log_text);
-    qDebug ("%s",qPrintable(log_text));
-}
+//void PageBuy::log_slots(QString log_text)
+//{
+//    this->ui->logEdit->appendPlainText( log_text);
+//    qDebug ("%s\n",qPrintable(log_text));
+//}
+//void PageBuy::log(QString log_text)
+//{
+//    this->ui->logEdit->appendPlainText( log_text);
+//    qDebug ("%s",qPrintable(log_text));
+//}
 
 void PageBuy::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
-    log("showevent");
-
 
 }
 
@@ -63,9 +62,9 @@ void PageBuy::on_Box_OS1_currentIndexChanged(int index)
 {
     if( ui->Box_OS2->count()>0 )
         ui->Box_OS2->clear();
-    for( int i =0; i<  vr->os->at(index)->size() ; i++ )
+    for( int i =0; i<  os->at(index)->size() ; i++ )
     {
-        ui->Box_OS2->addItem( vr->os->at(index)->at(i)->name);
+        ui->Box_OS2->addItem( os->at(index)->at(i)->name);
     }
     qDebug("os1改变为%d",index);
 }
@@ -73,7 +72,7 @@ void PageBuy::on_Box_OS2_currentIndexChanged(int index)
 {
     int num_osfamilly = ui->Box_OS1->currentIndex();
 //    int num_os = ui->Box_OS2->currentIndex();
-    select_os = vr->os->at(num_osfamilly)->at(index );
+    select_os = os->at(num_osfamilly)->at(index );
     qDebug("现在选择的os是%s", qPrintable(select_os->name));
 }
 
@@ -90,10 +89,10 @@ void PageBuy::on_TAB_model1_currentChanged(int index)
         ui->TAB_model2->setHidden( false );
 //        ui->list_model->setHidden( false );
 
-        ui->TAB_model2->setTabText(0, vr->model->at(index_p)->name());
-        ui->TAB_model2->setTabText(1, vr->model->at(index_p+1)->name());
-        ui->TAB_model2->setTabText(2, vr->model->at(index_p+2)->name());
-        ui->TAB_model2->setTabText(3, vr->model->at(index_p+3)->name());
+        ui->TAB_model2->setTabText(0, model->at(index_p)->name());
+        ui->TAB_model2->setTabText(1, model->at(index_p+1)->name());
+        ui->TAB_model2->setTabText(2, model->at(index_p+2)->name());
+        ui->TAB_model2->setTabText(3, model->at(index_p+3)->name());
 
 
         break;
@@ -121,9 +120,9 @@ void PageBuy::on_TAB_model2_currentChanged(int index)
     if( ui->list_model->count()>0 )
         ui->list_model->clear();
 
-    for( int i =0; i< vr->model->at( index_p )->size() ; i++ )
+    for( int i =0; i< model->at( index_p )->size() ; i++ )
     {
-        ui->list_model->addItem( vr->model->at(index_p)->at(i)->introduce() );
+        ui->list_model->addItem( model->at(index_p)->at(i)->introduce() );
     }
     ui->list_model->setHidden(false);
 
@@ -138,7 +137,7 @@ void PageBuy::on_list_model_currentRowChanged(int currentRow)
     int num_model_class = ui->TAB_model1->currentIndex()*4 + ui->TAB_model2->currentIndex();
     qDebug("model class = %d", num_model_class);
 
-    select_model = vr->model->at(num_model_class)->at(currentRow);
+    select_model = model->at(num_model_class)->at(currentRow);
 
     //设置可部署地区的栏
     ui->Box_locations1->clear();
@@ -174,7 +173,7 @@ void PageBuy::on_Box_locations1_currentIndexChanged(int index)
         ui->Box_locations2->setEnabled(false);
     else
         ui->Box_locations2->setEnabled(true);
-    log(  select_model->introduce() );
+
 }
 
 

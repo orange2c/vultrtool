@@ -1,26 +1,26 @@
 #include "vpsos.h"
 
-OSDATA::OSDATA( QJsonObject *os_json )
+Os_Data::Os_Data( QJsonObject *os_json )
 {
-    id =  SPIDER::path( os_json, "id" ).toInt() ;
-    name.append( SPIDER::path( os_json, "name" ).toString() );
-    family.append( SPIDER::path( os_json, "family" ).toString() );
+    id =  Spider::path( os_json, "id" ).toInt() ;
+    name.append( Spider::path( os_json, "name" ).toString() );
+    family.append( Spider::path( os_json, "family" ).toString() );
     qDebug("id=%d,name=%s,familly=%s",id, qPrintable(name), qPrintable(family) );
 }
 
 /*******************************VOSFAMILLY*********************************/
 
-VOsFamilly::VOsFamilly( QString name )
+Os_LinkedList::Os_LinkedList( QString name )
 {
     setname(name);
 }
 
-void VOsFamilly::append( QJsonObject *os_json )
+void Os_LinkedList::append( QJsonObject *os_json )
 {
-    OSDATA *os = new OSDATA(os_json);
+    Os_Data *os = new Os_Data(os_json);
     LinkedList::append( os);
 }
-bool VOsFamilly::appendSame( OSDATA *os )
+bool Os_LinkedList::appendSame( Os_Data *os )
 {
 
     if( QString::compare( this->name(), os->family )==0 )
@@ -32,13 +32,13 @@ bool VOsFamilly::appendSame( OSDATA *os )
         return false;
 }
 
-VOsFamilly* VPSOS::at(int num)
+Os_LinkedList* VpsOs::at(int num)
 {
     if( num<0 ) num=0;
     if( num>=OS_LIST_SIZE )num = OS_LIST_SIZE-1;
     return OSlist[ num ];
 }
-VPSOS::~VPSOS()
+VpsOs::~VpsOs()
 {
     for( int i=0; i<OS_LIST_SIZE; i++)
     {
@@ -46,9 +46,9 @@ VPSOS::~VPSOS()
     }
 }
 
-void VPSOS::update()
+void VpsOs::update()
 {
-    SPIDER spider;
+    Spider spider;
     spider.get("os");
     qDebug("get");
     QStringList match_str;
@@ -57,7 +57,7 @@ void VPSOS::update()
     QJsonArray all_os_json = spider.path( &match_str ).toArray();
 //    analyze(&all_os_json);
 
-    VOsFamilly *os_all = OSlist[OS_LIST_SIZE-1];//存储所有可用os
+    Os_LinkedList *os_all = OSlist[OS_LIST_SIZE-1];//存储所有可用os
     for( int i=0; i<all_os_json.size(); i++ )
     {
         QJsonObject os_json = all_os_json.at(i).toObject();

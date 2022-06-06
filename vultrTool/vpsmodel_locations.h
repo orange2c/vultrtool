@@ -5,26 +5,26 @@
 
 
 //机场信息类
-class LOCATION_DATA
+class Locatiom_Data
 {
 
 public:
     QString airport ;  //机场3字代码
     QString name ;  //对应机场的名称
     int country;
-    LOCATION_DATA( QString code, QString translate, int thecountry);
-    LOCATION_DATA( QString code );
+    Locatiom_Data( QString code, QString translate, int thecountry);
+    Locatiom_Data( QString code );
     static int count; //存储到底被实例化多少对象
-    ~LOCATION_DATA(){ count--; }
+    ~Locatiom_Data(){ count--; }
 };
 
 //存储所有机场信息
-class AirFamilly:public LinkedList<LOCATION_DATA>
+class Location_LinkedList:public LinkedList<Locatiom_Data>
 {
 public:
-    AirFamilly(QString name);
+    Location_LinkedList(QString name);
     void append(QString code, QString translate, int thecountry);
-    void append( LOCATION_DATA *data );
+    void append( Locatiom_Data *data );
     void append( QString code );
 };
 
@@ -49,40 +49,40 @@ public:
 #define Eother     15
 
 
-class VPSMODEL_LOCATIONS
+class VpsModel_Locations
 {
 public:
-    VPSMODEL_LOCATIONS( );
-    ~VPSMODEL_LOCATIONS();
+    VpsModel_Locations( );
+    ~VpsModel_Locations();
 
     void update(QStringList *source); //传入一个机型可用的所有机场代码
-    AirFamilly *at(int num);
+    Location_LinkedList *at(int num);
     int size();
 
 protected:
-    AirFamilly *locations[Eother+1]; //指向transfer_locations的非空项目
+    Location_LinkedList *locations[Eother+1]; //指向transfer_locations的非空项目
     int size_locations; //记录上面指针数组的非空数量
     void addtolocations( QString aircode );  //传入一个机场代码，识别并添加到locations
-    AirFamilly *all_air = new AirFamilly("all");
+    Location_LinkedList *all_air = new Location_LinkedList("all");
 
-    AirFamilly *transfer_locations[Eother+1]=
+    Location_LinkedList *transfer_locations[Eother+1]=
     { //保存transfer的查找结果
-        new AirFamilly("美国"),
-        new AirFamilly("法国"),
-        new AirFamilly("英国"),
-        new AirFamilly("日本"),
-        new AirFamilly("荷兰"),
-        new AirFamilly("德国"),
-        new AirFamilly("澳大利亚"),
-        new AirFamilly("加拿大"),
-        new AirFamilly("波兰"),
-        new AirFamilly("西班牙"),
-        new AirFamilly("韩国"),
-        new AirFamilly("新加坡"),
-        new AirFamilly("瑞典"),
-        new AirFamilly("墨西哥"),
-        new AirFamilly("印度"),
-        new AirFamilly("无翻译")
+        new Location_LinkedList("美国"),
+        new Location_LinkedList("法国"),
+        new Location_LinkedList("英国"),
+        new Location_LinkedList("日本"),
+        new Location_LinkedList("荷兰"),
+        new Location_LinkedList("德国"),
+        new Location_LinkedList("澳大利亚"),
+        new Location_LinkedList("加拿大"),
+        new Location_LinkedList("波兰"),
+        new Location_LinkedList("西班牙"),
+        new Location_LinkedList("韩国"),
+        new Location_LinkedList("新加坡"),
+        new Location_LinkedList("瑞典"),
+        new Location_LinkedList("墨西哥"),
+        new Location_LinkedList("印度"),
+        new Location_LinkedList("无翻译")
         };
 };
 

@@ -7,41 +7,40 @@
 #include <spider.h>
 #include "vpsmodel.h"
 #include "vpsos.h"
+#include "vpsinstances.h"
 
 
-class VULTR: public QObject
+class Vultr: public QObject
 {
     Q_OBJECT
 public:
-    VULTR();
-    ~VULTR();
-
-    bool login(); //测试密钥是否正确
-//    static void set_key( QByteArray *key ){ if(key!=NULL) delete API_KEY; API_KEY = new QByteArray(*key);}
-    void set_key( QString key_text );
-    void update_message(); //更新个人信息
-    void update_model();
+    Vultr();
+    ~Vultr();
 
     static QString email;
     static QString username;
     static double Balance;
 
-//    VModelFamilly *vc2 = new VModelFamilly("cloud", "vc2");
-    VPSOS *os =new VPSOS;  //部署新vps可用的os
-    VPSMODEL *model = new VPSMODEL;
+    bool login(); //测试密钥是否正确
+    void set_key( QString key_text );
+    void update_message(); //更新个人信息
+    void update_model();
+
+    VpsOs *get_os();
+    VpsModel *get_model();
+
+
 
 protected:
     static QByteArray API_KEY ;
-    SPIDER *spider;
-
+    Spider *spider;
+    VpsOs *os ;  //部署新vps可用的os
+    VpsModel *model ;
 
 
 
 public Q_SLOTS:
-    void log_Transfer( QString log_text );
 
-signals:
-    void log( QString log_text );
 
 };
 

@@ -10,33 +10,30 @@ namespace Ui {
 class PageBuy;
 }
 
-//创建一个类来存储当前的页面内所有项目的选择
-class MODEL_NOW
-{
-public:
-};
+
 
 class PageBuy : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit PageBuy(QWidget *parent = nullptr);
+    explicit PageBuy( Vultr *vultr_p, QWidget *parent = nullptr);
     ~PageBuy();
 
 private:
     Ui::PageBuy *ui;
     FileConf *config;
-    VULTR *vr;  //定义一个操作vultr的类指针
+    Vultr *vultr ;  //由外部传入vultr指针
+    VpsOs *os ; //由vultr类中分离出来专门指向os
+    VpsModel *model ; //由vultr类中分离出来专门指向model
 
-    VPSMODE_DATA *select_model;
-    OSDATA *select_os;
-    LOCATION_DATA *select_location;
+    VpsModel_Data *select_model; //指向当前选择的机型
+    Os_Data *select_os; //指向当前选择的系统
+    Locatiom_Data *select_location;  //指向当前选择的地区
 
-    void log( QString log_text ); //将传入字符串在log窗口显示出来
 
 public slots:
-    void log_slots( QString log_text );
+
 private slots:
     void showEvent(QShowEvent *event);
 

@@ -4,43 +4,49 @@
 #include "pagebuy.h"
 
 
-PageInformation::PageInformation(QWidget *parent) :
+PageInformation::PageInformation( Vultr *vultr_p,  QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::PageInformation)
+    ui(new Ui::PageInformation),
+    vultr( vultr_p )
 {
     ui->setupUi(this);
-    vr = new VULTR();
-    QObject::connect( vr, SIGNAL(log(QString)), this, SLOT(log_slots(QString)) );
 
-//    vr->update_message();
-    ui->label_email->setText( vr->email);
-    ui->label_name->setText( vr->username );
-    ui->label_money->setText( QString::number(vr->Balance, 'f', 2) + "美元");
+    int pagecount = sizeof( page )  /  sizeof( page[0] );
+    for( pagecount--; pagecount >= 0; pagecount-- )
+        page[ pagecount ] = new PageBuy( vultr );
 
-    PBuy = new PageBuy();
+    ui->label_email->setText( vultr->email);
+    ui->label_name->setText( vultr->username );
+    ui->label_money->setText( QString::number(vultr->Balance, 'f', 2) + "美元");
+
 }
 
 PageInformation::~PageInformation()
 {
+    qDebug("delete pagebug");
+    int pagecount = sizeof( page )  /  sizeof( page[0] );
+    for( pagecount--; pagecount >= 0; pagecount-- )
+    {
+        qDebug("delete pagebug");
+        page[ pagecount ]->close();
+        delete page[ pagecount ];
+    }
+
     delete ui;
-    delete  vr;
-    delete PBuy;
-}
-void PageInformation::log_slots(QString log_text)
-{
-    this->ui->logEdit->appendPlainText( log_text);
-    qDebug ("%s\n",qPrintable(log_text));
-}
-void PageInformation::log(QString log_text)
-{
-    this->ui->logEdit->appendPlainText( log_text);
-    qDebug ("%s",qPrintable(log_text));
+
 }
 
 
 void PageInformation::on_button_buy_clicked()
 {
-    PBuy->show();
-//    log("yes");
+    int pagecount = sizeof( page )  /  sizeof( page[0] );
+    for( pagecount--; pagecount >= 0; pagecount-- )
+    {
+        if( page[ pagecount ]->isHidden() )
+        {
+            page[ pagecount ]->show();
+            return;
+        }
+    }
 }
 

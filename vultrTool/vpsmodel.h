@@ -9,14 +9,14 @@
 #include "vpsmodel_locations.h"
 
 
-class VPSMODE_DATA
+class VpsModel_Data
 {
 public:
-    VPSMODE_DATA( QJsonObject *vps_json, bool ismetal=false );
-    ~VPSMODE_DATA();
+    VpsModel_Data( QJsonObject *vps_json, bool ismetal=false );
+    ~VpsModel_Data();
     QString model_id();
     QString introduce();
-    VPSMODEL_LOCATIONS *local = new VPSMODEL_LOCATIONS();
+    VpsModel_Locations *local = new VpsModel_Locations();
 
 protected:
     QString *introduceP = NULL ;
@@ -39,10 +39,10 @@ protected:
 
 };
 
-class VModelFamilly: public LinkedList< VPSMODE_DATA >
+class VpsModel_LinkedList: public LinkedList< VpsModel_Data >
 {
 public:
-    VModelFamilly( QString name, QString type_name, QString part="" );
+    VpsModel_LinkedList( QString name, QString type_name, QString part="" );
     void takeSame(QJsonArray *vps_list); //传入json数组，将所有与model_type相同的都取走
     void appendmetal( QJsonArray *vps_list );
     void append( QJsonObject *vps_json, bool ismetal=false );
@@ -52,29 +52,29 @@ protected:
 };
 
 
-class VPSMODEL
+class VpsModel
 {
 public:
-    void update(); //更新可用机型
-    VModelFamilly *at(int num); //从AllModelFamilly中返回
-    VPSMODE_DATA *at( int familly, int num  );
-    VModelFamilly metal( int num );
+    void updata(); //更新可用机型
+    VpsModel_LinkedList *at(int num); //从AllModelFamilly中返回
+    VpsModel_Data *at( int familly, int num  );
+    VpsModel_LinkedList metal( int num );
 protected:
 
 #define  MODEL_LIST_SIZE  9
-    VModelFamilly *AllModelFamilly[MODEL_LIST_SIZE] = {
+    VpsModel_LinkedList *AllModelFamilly[MODEL_LIST_SIZE] = {
         //目前可用类型
-        new VModelFamilly("云电脑", "vc2"),
+        new VpsModel_LinkedList("云电脑", "vc2"),
 //        new VModelFamilly("专用云", "vdc"),
-        new VModelFamilly("高频计算", "vhf"),
-        new VModelFamilly("高性能amd", "vhp", "amd"),
-        new VModelFamilly("高性能intel", "vhp", "intel"),
-        new VModelFamilly("通用优化", "voc", "voc-g"),
-        new VModelFamilly("cpu优化", "voc", "voc-c"),
-        new VModelFamilly("内存优化", "voc", "voc-m"),
-        new VModelFamilly("存储优化", "voc", "voc-s"),
+        new VpsModel_LinkedList("高频计算", "vhf"),
+        new VpsModel_LinkedList("高性能amd", "vhp", "amd"),
+        new VpsModel_LinkedList("高性能intel", "vhp", "intel"),
+        new VpsModel_LinkedList("通用优化", "voc", "voc-g"),
+        new VpsModel_LinkedList("cpu优化", "voc", "voc-c"),
+        new VpsModel_LinkedList("内存优化", "voc", "voc-m"),
+        new VpsModel_LinkedList("存储优化", "voc", "voc-s"),
 
-        new VModelFamilly("metal", "", ""),
+        new VpsModel_LinkedList("metal", "", ""),
 
     };
 };
