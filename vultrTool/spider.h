@@ -24,7 +24,7 @@ public:
     QNetworkAccessManager *NetManager= new QNetworkAccessManager();
 
     void get(QString path);
-//    void post( QString path, QStringAr );
+    void post( QString path, QByteArray data );
 
     QJsonValue path( QStringList *list );  //从上一次通信所接收的json中，根据list的规则匹配,适用于寻找被多层嵌套的属性
     static QJsonValue path( QJsonObject *obj,  QString type );  //从obj中返回type属性的值

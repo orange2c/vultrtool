@@ -31,6 +31,7 @@ private:
     Os_Data *select_os; //指向当前选择的系统
     Locatiom_Data *select_location;  //指向当前选择的地区
 
+    Spider *spider_buy;
 
 public slots:
 

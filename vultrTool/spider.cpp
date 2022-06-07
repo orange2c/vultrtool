@@ -222,4 +222,33 @@ void Spider::get(QString path)
 
 }
 
+void Spider::post(QString path, QByteArray data)
+{
+    QObject::connect(NetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(reply_slot(QNetworkReply*)) );
+
+    QUrl api_path ("https://api.vultr.com/v2/" + path );
+    QNetworkRequest request;
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36"));
+    request.setUrl(api_path);
+
+//    emit log(api_path.toDisplayString());
+//    emit log( *API_KEY );
+
+    QSslConfiguration config;
+    QSslConfiguration conf = request.sslConfiguration();
+    conf.setPeerVerifyMode(QSslSocket::VerifyNone);
+    conf.setProtocol(QSsl::TlsV1SslV3);
+    request.setSslConfiguration(conf);
+
+    QByteArray author;
+    author.append("Bearer ");
+    author.append( *API_KEY );
+    request.setRawHeader("Authorization", author);
+
+    NetManager->post( request, data);
+
+    is_wait_reply = 1;
+
+
+}
 

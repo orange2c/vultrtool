@@ -12,6 +12,7 @@ PageBuy::PageBuy( Vultr *vultr_p, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    spider_buy = new Spider;
 }
 
 PageBuy::~PageBuy()
@@ -181,5 +182,30 @@ void PageBuy::on_pushButton_clicked()
     qDebug( "select os:%d", select_os->id );
     qDebug("select locations:%s", qPrintable(select_location->airport) );
 
+    QJsonObject data;
+//    data.insert( "region", select_location->airport );
+//    data.insert( "plan", select_model->model_id() );
+//    data.insert( "os_id", select_os->id );
+    data.insert( "region", "ewr" );
+    data.insert( "plan", "vc2-1c-1gb" );
+    data.insert( "os_id", 215 );
+    data.insert( "hostname", "root" );
+    data.insert( "label", "Example" );
+    data.insert( "backups", "disabled" );
+//    data.insert( "user_data", "QmFzZTY0IEV4YW1wbGUgRGF0YQ==" );
+
+    QByteArray byte_data = QJsonDocument(data).toJson();
+    qDebug("data=\n%s", byte_data.data() );
+
+    spider_buy->post("instances", byte_data );
 }
 
+/*
+"region": "ewr",
+"plan": "vc2-6c-16gb",
+"label": "Example Instance",
+"os_id": 215,
+"user_data": "QmFzZTY0IEV4YW1wbGUgRGF0YQ==",
+"backups": "enabled",
+"hostname": "my_hostname"
+ */
