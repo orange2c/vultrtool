@@ -77,9 +77,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>250</y>
+      <y>350</y>
       <width>381</width>
-      <height>131</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="readOnly">
@@ -103,16 +103,123 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>140</y>
-      <width>401</width>
-      <height>71</height>
+      <y>130</y>
+      <width>391</width>
+      <height>81</height>
      </rect>
     </property>
     <item>
      <property name="text">
-      <string>服务器名称  192.268.333.222  root    123456789abc</string>
+      <string>服务器名称    192.268.333.222    加利福尼亚    8.8888</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>新建项目</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>新建项目</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>新建项目</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QWidget" name="formLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>160</width>
+      <height>112</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout_2">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_1">
+       <property name="text">
+        <string>用户名：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>密码：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>ip地址</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>操作系统</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>220</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开机</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>250</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>关机</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>280</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>重启</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>310</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>销毁停止计费</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

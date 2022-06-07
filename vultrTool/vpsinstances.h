@@ -8,7 +8,9 @@
 
 class VpsInstances_Data
 {
-
+protected:
+    QString *id = NULL;
+    QString *ip = NULL;
 };
 
 class VpsInstances : public QObject
@@ -17,8 +19,12 @@ class VpsInstances : public QObject
 public:
     explicit VpsInstances(QObject *parent = nullptr);
     void updata();
+protected:
+    Spider *spider = NULL ;
 
 signals:
+public slots:
+    void reply_instances();
 
 };
 

@@ -15,8 +15,9 @@ public:
     VpsModel_Data( QJsonObject *vps_json, bool ismetal=false );
     ~VpsModel_Data();
     QString model_id();
+    QString cost_month();
     QString introduce();
-    VpsModel_Locations *local = new VpsModel_Locations();
+    VpsModel_Locations *location = new VpsModel_Locations();
 
 protected:
     QString *introduceP = NULL ;
@@ -52,14 +53,22 @@ protected:
 };
 
 
-class VpsModel
+class VpsModel : public QObject
 {
+    Q_OBJECT
 public:
+    explicit VpsModel( QObject *parent = 0 );
     void updata(); //更新可用机型
     VpsModel_LinkedList *at(int num); //从AllModelFamilly中返回
     VpsModel_Data *at( int familly, int num  );
     VpsModel_LinkedList metal( int num );
+public slots:
+    void analyze_plans();
+    void analyze_metal();
+
 protected:
+    Spider *spider_plans = NULL;
+    Spider *spider_metal = NULL; //在updata调用时new，在槽内处理完数据就delete
 
 #define  MODEL_LIST_SIZE  9
     VpsModel_LinkedList *AllModelFamilly[MODEL_LIST_SIZE] = {

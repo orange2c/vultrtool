@@ -1,8 +1,9 @@
 #include "spider.h"
 QByteArray* Spider::API_KEY = NULL;
 
-Spider::Spider(  )
+Spider::Spider()
 {
+
 }
 
 Spider::Spider( QByteArray *KEY )
@@ -25,20 +26,19 @@ void Spider::reply_slot(QNetworkReply *reply)
     QNetworkReply::NetworkError err = reply->error();
 
     QByteArray  reply_data = reply->readAll();
-    emit log( reply_data );
-//    qDebug("%s",reply_data );
+
+    qDebug("%s", reply_data.data() );
     reply->deleteLater();
 
     if(err != QNetworkReply::NoError)
     {
-        emit log( "NetWork ERROR:" + reply->errorString() );
         replyJson = NULL;
         return;
     }
 
     if(err != QNetworkReply::NoError)
     {
-        emit log( "NetWork ERROR:" + reply->errorString() );
+//        emit log( "NetWork ERROR:" + reply->errorString() );
         replyJson = NULL;
     }
     QJsonParseError json_error;
@@ -54,10 +54,11 @@ void Spider::reply_slot(QNetworkReply *reply)
             replyJson = new QJsonObject(doucment.object());
         }
 
+    emit reply_ready();
 }
 QJsonValue Spider::_recursive_find( QJsonObject *obj, QStringList *match_list )
 {
-    emit log("matching:"+match_list->at(0));
+//    emit log("matching:"+match_list->at(0));
     if (obj->contains(match_list->at(0)))
     {
         if( match_list->size()>1 )
@@ -112,7 +113,7 @@ void Spider::take(QJsonArray *text, QString type, QJsonValue value, QJsonArray *
 {
     if( value.isString() )
     {
-        emit log("isString");
+//        emit log("isString");
         QString take_value = value.toString();
         QString part_value = part.toString();
         bool half_match =false;
@@ -120,7 +121,7 @@ void Spider::take(QJsonArray *text, QString type, QJsonValue value, QJsonArray *
         {
             half_match =true;
         }
-        emit log(take_value);
+//        emit log(take_value);
         int i = 0;
 
         while( i<= text->size()-1 )
@@ -201,8 +202,8 @@ void Spider::get(QString path)
     request.setHeader(QNetworkRequest::UserAgentHeader, QVariant("Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36"));
     request.setUrl(api_path);
 
-    emit log(api_path.toDisplayString());
-    emit log( *API_KEY );
+//    emit log(api_path.toDisplayString());
+//    emit log( *API_KEY );
 
     QSslConfiguration config;
     QSslConfiguration conf = request.sslConfiguration();
@@ -218,4 +219,7 @@ void Spider::get(QString path)
     NetManager->get(request);
     is_wait_reply = 1;
 
+
 }
+
+

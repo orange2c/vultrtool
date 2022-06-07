@@ -31,11 +31,13 @@ public:
 
 
 
+
 protected:
     static QByteArray API_KEY ;
     Spider *spider;
     VpsOs *os ;  //部署新vps可用的os
     VpsModel *model ;
+    VpsInstances *instances;
 
 
 

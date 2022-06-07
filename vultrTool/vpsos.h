@@ -8,9 +8,9 @@
 #include "spider.h"
 #include "linkedlist.h"
 
-class Os_Data : public QObject
+class Os_Data
 {
-    Q_OBJECT
+
 public:
     Os_Data( QJsonObject *os_json ); //传入一串带os信息的json，拆解其中信息
 
@@ -30,15 +30,20 @@ public:
     bool appendSame( Os_Data *os ); //会判断传入的os的familly是否跟自己一致，相同则append然后返回true
 
 };
-class VpsOs
+class VpsOs : public QObject
 {
+    Q_OBJECT
 public:
+    explicit VpsOs( QObject *parent = 0 );
     ~VpsOs();
     Os_LinkedList *at( int num );
     void update();
 
-protected:
+public slots:
+    void analyze_os();
 
+protected:
+    Spider *spider_os = NULL;
 #define  OS_LIST_SIZE  8
     Os_LinkedList *OSlist[OS_LIST_SIZE] = {
         //目前可用os类型
@@ -53,7 +58,5 @@ protected:
     };
 
 };
-//    };
-
 
 #endif // VPSOS_H

@@ -38,6 +38,14 @@ Os_LinkedList* VpsOs::at(int num)
     if( num>=OS_LIST_SIZE )num = OS_LIST_SIZE-1;
     return OSlist[ num ];
 }
+
+
+VpsOs::VpsOs( QObject *parent )
+{
+    Q_UNUSED( parent );
+
+}
+
 VpsOs::~VpsOs()
 {
     for( int i=0; i<OS_LIST_SIZE; i++)
@@ -48,13 +56,21 @@ VpsOs::~VpsOs()
 
 void VpsOs::update()
 {
-    Spider spider;
-    spider.get("os");
-    qDebug("get");
+    if( spider_os == NULL )
+    {
+        spider_os = new Spider;
+        connect( spider_os, SIGNAL( reply_ready() ), SLOT( analyze_os() )   );
+        spider_os->get("os");
+
+    }
+}
+void VpsOs::analyze_os()
+{
+
     QStringList match_str;
     match_str << "os";
 
-    QJsonArray all_os_json = spider.path( &match_str ).toArray();
+    QJsonArray all_os_json = spider_os->path( &match_str ).toArray();
 //    analyze(&all_os_json);
 
     Os_LinkedList *os_all = OSlist[OS_LIST_SIZE-1];//存储所有可用os
@@ -75,5 +91,6 @@ void VpsOs::update()
              i++;
         }
     }
-
+    delete  spider_os;
+    spider_os = NULL;
 }

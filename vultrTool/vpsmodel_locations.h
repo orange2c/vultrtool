@@ -55,7 +55,7 @@ public:
     VpsModel_Locations( );
     ~VpsModel_Locations();
 
-    void update(QStringList *source); //传入一个机型可用的所有机场代码
+    void update(QStringList *source); //传入一个机型可用的所有机场代码,自动识别分类存储到本类
     Location_LinkedList *at(int num);
     int size();
 

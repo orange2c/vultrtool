@@ -16,6 +16,7 @@ Vultr::Vultr()
     spider = new Spider( &API_KEY );
     os = new VpsOs;
     model = new VpsModel;
+    instances = new VpsInstances;
 
 }
 Vultr::~Vultr()
@@ -23,6 +24,7 @@ Vultr::~Vultr()
     delete spider;
     delete os;
     delete model;
+    delete instances;
 }
 VpsModel *Vultr::get_model()
 {
@@ -43,8 +45,10 @@ void Vultr::set_key(QString key_text)
 
 bool Vultr::login()
 {
+    os->update();
+    model->updata();
+    instances->updata();
     update_message();
-    update_model();
     if( this->email.size()>1 )
     {
         return true;
@@ -76,13 +80,8 @@ void Vultr::update_message()
      match_str<< "account" << "pending_charges"; //match函数内会清空本qstringlist
      pending =  spider->path( &match_str).toDouble();
      Balance = 0-( pending + Balance );
-}
-
-
-void Vultr::update_model()
-{
-    //获取可用os信息
-    os->update();
-    model->updata();
 
 }
+
+
+

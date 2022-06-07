@@ -47,14 +47,15 @@ VpsModel_Data::VpsModel_Data( QJsonObject *vps_json, bool is_metal )
     for( int i = 0; i<location_json.size(); i++ )
         location_strlist->append( location_json.at(i).toString()  );
 
-    local->update(location_strlist);
+    location->update(location_strlist);
+
 }
 
 VpsModel_Data::~VpsModel_Data()
 {
     delete introduceP;
     delete location_strlist;
-    delete local;
+    delete location;
 }
 
 QString VpsModel_Data::introduce()
@@ -66,7 +67,10 @@ QString VpsModel_Data::model_id()
 {
     return QString(id);
 }
-
+QString VpsModel_Data::cost_month()
+{
+    return QString(  QString::number( monthly_cost) );
+}
 /******************VModelFamilly*********************/
 
 VpsModel_LinkedList::VpsModel_LinkedList( QString name, QString type_name, QString part  )
@@ -133,24 +137,51 @@ VpsModel_Data *VpsModel::at( int familly, int num  )
     if( num>=traget->size() )num = traget->size()-1;
     return traget->at(num);
 }
+VpsModel::VpsModel(  QObject *parent )
+{
+    Q_UNUSED( parent );
+//    updata();
+}
 void VpsModel::updata()
 {
-    Spider spider;
-    spider.get( "plans" );
+    if( spider_plans == NULL )
+    {
+        spider_plans = new Spider;
+        connect( spider_plans, SIGNAL( reply_ready() ), SLOT( analyze_plans() )   );
+        spider_plans->get( "plans" );
+    }
+    if( spider_metal == NULL )
+    {
+        spider_metal = new Spider;
+        connect( spider_metal, SIGNAL( reply_ready() ), SLOT( analyze_metal() )   );
+        spider_metal->get( "plans-metal" );
+    }
+}
+void VpsModel::analyze_plans()
+{
+
     QStringList match_str;
 
     match_str << "plans";
-    QJsonArray *vps_list = new QJsonArray(spider.path( &match_str ).toArray());
+    QJsonArray *vps_list = new QJsonArray( spider_plans->path( &match_str ).toArray() );
     for( int i=0; i<MODEL_LIST_SIZE-1; i++ )
     {
 //        qDebug("moedl-i=%d", i);
         AllModelFamilly[i]->takeSame(vps_list);
     }
-    spider.get( "plans-metal" );
 
+    delete spider_plans;
+    spider_plans = NULL;
+}
+void VpsModel::analyze_metal()
+{
+
+    QStringList match_str;
     match_str << "plans_metal";
-    QJsonArray *metal_list = new QJsonArray(spider.path( &match_str ).toArray());
+    QJsonArray *metal_list = new QJsonArray(spider_metal->path( &match_str ).toArray());
 
     AllModelFamilly[MODEL_LIST_SIZE-1]->appendmetal(metal_list);
+    delete  spider_metal;
+    spider_metal = NULL;
 
 }

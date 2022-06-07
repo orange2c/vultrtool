@@ -44,6 +44,7 @@ private slots:
     void on_list_model_currentRowChanged(int currentRow);
     void on_Box_locations1_currentIndexChanged(int index);
     void on_Box_locations2_currentIndexChanged(int index);
+    void on_pushButton_clicked();
 };
 
 #endif // PAGEBUY_H

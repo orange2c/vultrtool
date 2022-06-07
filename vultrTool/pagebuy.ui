@@ -41,7 +41,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_cost">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -384,7 +384,7 @@
    <zorder>TAB_model1</zorder>
    <zorder>TAB_model2</zorder>
    <zorder>logEdit</zorder>
-   <zorder>label</zorder>
+   <zorder>label_cost</zorder>
    <zorder>pushButton</zorder>
    <zorder>list0</zorder>
    <zorder>list_model</zorder>
@@ -396,7 +396,7 @@
      <x>0</x>
      <y>0</y>
      <width>602</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

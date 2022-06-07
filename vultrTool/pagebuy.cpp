@@ -9,22 +9,27 @@ PageBuy::PageBuy( Vultr *vultr_p, QWidget *parent) :
     vultr( vultr_p ),
     os( vultr->get_os() ),
     model( vultr->get_model() )
-
-
 {
     ui->setupUi(this);
 
-//    vultr->update_model(); //获取所有可用机型
+}
+
+PageBuy::~PageBuy()
+{
+    delete ui;
+}
+
+void PageBuy::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event);
+
     ui->list0->setMovement( QListView::Static );
-
-
 
     ui->Box_OS1->clear();
     for( int i=0; i<(OS_LIST_SIZE); i++ )
     {
         ui->Box_OS1->addItem( os->at(i)->name() );
     }
-
 
     //设置一下两个机型类别选择的tab标签铺满
     int width = ui->TAB_model1->width() /3 ;
@@ -34,26 +39,6 @@ PageBuy::PageBuy( Vultr *vultr_p, QWidget *parent) :
 
     ui->TAB_model1->setCurrentIndex(0); //手动触发选择机型大类，刷新机型小类的选项，及机型列表
     emit ui->TAB_model1->currentChanged(0);
-}
-
-PageBuy::~PageBuy()
-{
-    delete ui;
-}
-//void PageBuy::log_slots(QString log_text)
-//{
-//    this->ui->logEdit->appendPlainText( log_text);
-//    qDebug ("%s\n",qPrintable(log_text));
-//}
-//void PageBuy::log(QString log_text)
-//{
-//    this->ui->logEdit->appendPlainText( log_text);
-//    qDebug ("%s",qPrintable(log_text));
-//}
-
-void PageBuy::showEvent(QShowEvent *event)
-{
-    Q_UNUSED(event);
 
 }
 
@@ -142,20 +127,22 @@ void PageBuy::on_list_model_currentRowChanged(int currentRow)
     //设置可部署地区的栏
     ui->Box_locations1->clear();
     ui->Box_locations2->clear();
-    if( select_model->local->size() >1 )
+    if( select_model->location->size() >1 )
     {
         ui->Box_locations1->setEnabled(true);
-        for( int i = 0; i< select_model->local->size()-1 ; i++ )
+        for( int i = 0; i< select_model->location->size()-1 ; i++ )
         {
-            ui->Box_locations1->addItem( select_model->local->at(i)->name() );
+            ui->Box_locations1->addItem( select_model->location->at(i)->name() );
         }
     }
     else
         ui->Box_locations1->setEnabled(false);
-    int size_other = select_model->local->at( select_model->local->size()-1 )->size();
+    int size_other = select_model->location->at( select_model->location->size()-1 )->size();
 
     if( size_other>0 )
-        ui->Box_locations1->addItem( select_model->local->at(select_model->local->size()-1)->name() );
+        ui->Box_locations1->addItem( select_model->location->at(select_model->location->size()-1)->name() );
+
+    ui->label_cost->setText( select_model->cost_month()+ "美元/月" );
 }
 
 void PageBuy::on_Box_locations1_currentIndexChanged(int index)
@@ -165,11 +152,11 @@ void PageBuy::on_Box_locations1_currentIndexChanged(int index)
 
 
     ui->Box_locations2->clear();
-    for( int j = 0; j< select_model->local->at(index)->size() ; j++ )
+    for( int j = 0; j< select_model->location->at(index)->size() ; j++ )
     {
-        ui->Box_locations2->addItem( select_model->local->at(index)->at(j)->name );
+        ui->Box_locations2->addItem( select_model->location->at(index)->at(j)->name );
     }
-    if( select_model->local->at(index)->size()<=1 ) //如果不到一个项目，则设为不可选
+    if( select_model->location->at(index)->size()<=1 ) //如果不到一个项目，则设为不可选
         ui->Box_locations2->setEnabled(false);
     else
         ui->Box_locations2->setEnabled(true);
@@ -182,7 +169,17 @@ void PageBuy::on_Box_locations2_currentIndexChanged(int index)
     if( index <0 ) return; //前面在更新本列表时会先clear，会导致传入一次-1
     qDebug("选择地区小编号%d", index);
     int num_box1 = ui->Box_locations1->currentIndex();
-    select_location = select_model->local->at(num_box1)->at(index);
+    select_location = select_model->location->at(num_box1)->at(index);
     qDebug("选择地区为%s", qPrintable( select_location->airport));
+}
+
+
+void PageBuy::on_pushButton_clicked()
+{
+
+    qDebug("select model:%s", qPrintable(select_model->model_id()) );
+    qDebug( "select os:%d", select_os->id );
+    qDebug("select locations:%s", qPrintable(select_location->airport) );
+
 }
 
